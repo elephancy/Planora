@@ -12,5 +12,8 @@ RUN npm run build
 
 FROM caddy:2.9-alpine
 
-COPY deploy/Caddyfile /etc/caddy/Caddyfile
-COPY --from=build /app/web/dist /srv
+COPY --chown=caddy:caddy deploy/Caddyfile /etc/caddy/Caddyfile
+COPY --chown=caddy:caddy --from=build /app/web/dist /srv
+USER caddy
+HEALTHCHECK --interval=30s --timeout=5s --start-period=10s --retries=3 \
+  CMD wget --quiet --spider http://127.0.0.1/ || exit 1
