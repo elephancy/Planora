@@ -859,10 +859,12 @@ export function App() {
     admin: (
       <AdminPanel
         principal={principal}
+        accessSnapshot={accessSnapshot}
         auditEvents={auditEvents}
         system={system}
         systemStatus={systemStatus}
         analytics={analyticsSummary}
+        onAccessChange={applyAccessChange}
         onRefresh={refreshAdmin}
         onEmailTest={sendEmailTest}
         onDownload={(path, filename) => api.download(path, filename).catch((error: unknown) => notify(String(error), "error"))}
@@ -870,10 +872,14 @@ export function App() {
     ),
   } as Record<ViewKey, ReactNode>;
 
+  const shellView: ViewKey = authenticated || ["home", "faq", "privacy", "login"].includes(view)
+    ? view
+    : "login";
+
   return (
     <AppShell
       principal={principal}
-      activeView={view}
+      activeView={shellView}
       authenticated={authenticated}
       theme={theme}
       analyticsConsent={analyticsConsent}
@@ -883,7 +889,7 @@ export function App() {
       onTutorialOpen={() => setTutorialOpen(true)}
       onAnalyticsConsentChange={setAnalyticsConsent}
     >
-      {content[view]}
+      {content[shellView]}
       <Tutorial
         open={tutorialOpen}
         steps={uiContract.tutorial}

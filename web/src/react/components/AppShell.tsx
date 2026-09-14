@@ -1,8 +1,12 @@
 import type { Principal, ViewKey } from "../types";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import type { ReactNode } from "react";
 import {
   CalendarBlank,
+  CaretLeft,
+  CaretRight,
+  ChartLineUp,
+  CloudCheck,
   Database,
   FolderOpen,
   List,
@@ -10,26 +14,53 @@ import {
   Question,
   SignOut,
   SlidersHorizontal,
+  ShieldStar,
   Sun,
+  UserCircle,
+  UsersThree,
   WarningDiamond,
   X,
 } from "@phosphor-icons/react";
 import type { Icon } from "@phosphor-icons/react";
 
-const AUTH_VIEWS: Array<{
+type AuthView = {
   key: ViewKey;
   label: string;
   description: string;
   icon: Icon;
   adminOnly?: boolean;
   permission?: string;
-}> = [
-  { key: "workspace", label: "Schedule", description: "Plan and repair", icon: CalendarBlank },
-  { key: "operations", label: "Data", description: "Courses and resources", icon: Database },
-  { key: "review", label: "Review", description: "Conflicts and quality", icon: WarningDiamond },
-  { key: "projects", label: "Projects", description: "Drafts and releases", icon: FolderOpen },
-  { key: "settings", label: "Advanced", description: "Specialist controls", icon: SlidersHorizontal },
+};
+
+const AUTH_VIEW_GROUPS: Array<{ label: string; items: AuthView[] }> = [
+  {
+    label: "Planning",
+    items: [
+      { key: "workspace", label: "Schedule", description: "Plan and repair", icon: CalendarBlank },
+      { key: "operations", label: "Data", description: "Courses and resources", icon: Database },
+      { key: "review", label: "Review", description: "Conflicts and quality", icon: WarningDiamond },
+      { key: "projects", label: "Projects", description: "Drafts and releases", icon: FolderOpen },
+      { key: "fairness", label: "Insights", description: "Fairness and workload", icon: ChartLineUp },
+      { key: "settings", label: "Advanced", description: "Specialist controls", icon: SlidersHorizontal },
+    ],
+  },
+  {
+    label: "Management",
+    items: [
+      { key: "access", label: "People & access", description: "Roles, groups and invites", icon: UsersThree, permission: "access:manage" },
+      { key: "parity", label: "Platform", description: "Feature coverage", icon: CloudCheck },
+      { key: "account", label: "Account", description: "Profile and security", icon: UserCircle },
+    ],
+  },
+  {
+    label: "Administration",
+    items: [
+      { key: "admin", label: "Super admin", description: "People, system and audit", icon: ShieldStar, adminOnly: true },
+    ],
+  },
 ];
+
+const AUTH_VIEWS = AUTH_VIEW_GROUPS.flatMap((group) => group.items);
 
 const PUBLIC_VIEWS: Array<{ key: ViewKey; label: string }> = [
   { key: "home", label: "Home" },
@@ -65,16 +96,18 @@ export function AppShell({
   children,
 }: Props) {
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
-  const visibleViews = AUTH_VIEWS.filter((view) =>
+  const [sidebarCollapsed, setSidebarCollapsed] = useState(false);
+  const workspaceNavRef = useRef<HTMLElement>(null);
+  const canSeeView = (view: AuthView) =>
     (!view.adminOnly || principal.is_global_admin) &&
-    (!view.permission || principal.permissions.includes(view.permission)),
-  );
+    (!view.permission || principal.permissions.includes(view.permission));
   const activeItem = AUTH_VIEWS.find((view) => view.key === activeView);
   const displayName = principal.user_id.replace(/^email:/, "").split("@")[0] || "Account";
   const roleLabel = principal.role.replaceAll("_", " ");
 
   useEffect(() => {
     setMobileNavOpen(false);
+    workspaceNavRef.current?.querySelector<HTMLElement>("[aria-current='page']")?.scrollIntoView({ block: "nearest" });
   }, [activeView]);
 
   const changeView = (view: ViewKey) => {
@@ -83,7 +116,7 @@ export function AppShell({
   };
 
   return (
-    <div className={`app-frame ${authenticated ? "authenticated-frame" : "public-frame"}`}>
+    <div className={`app-frame ${authenticated ? `authenticated-frame sidebar-${sidebarCollapsed ? "collapsed" : "expanded"}` : "public-frame"}`}>
       <header className="site-nav">
         <button type="button" className="brand-link" onClick={() => changeView(authenticated ? "workspace" : "home")} aria-label="Planora home">
           <img src="/app-icon.png" alt="" />
@@ -150,22 +183,31 @@ export function AppShell({
               onClick={() => setMobileNavOpen(false)}
             />
             <aside className={`workspace-sidebar ${mobileNavOpen ? "open" : ""}`}>
-              <nav className="workspace-nav" aria-label="Workspace navigation">
-                {visibleViews.map((item) => (
-                  <button
-                    key={item.key}
-                    type="button"
-                    className={activeView === item.key ? "active" : ""}
-                    aria-current={activeView === item.key ? "page" : undefined}
-                    onClick={() => changeView(item.key)}
-                  >
-                    <item.icon className="workspace-nav-icon" aria-hidden="true" weight={activeView === item.key ? "fill" : "regular"} />
-                    <span>
-                      <strong>{item.label}</strong>
-                      <small>{item.description}</small>
-                    </span>
-                  </button>
-                ))}
+              <nav className="workspace-nav" aria-label="Workspace navigation" ref={workspaceNavRef}>
+                {AUTH_VIEW_GROUPS.map((group) => {
+                  const items = group.items.filter(canSeeView);
+                  return items.length ? (
+                    <div className="workspace-nav-group" key={group.label}>
+                      <span className="workspace-nav-group-label">{group.label}</span>
+                      {items.map((item) => (
+                        <button
+                          key={item.key}
+                          type="button"
+                          className={activeView === item.key ? "active" : ""}
+                          aria-current={activeView === item.key ? "page" : undefined}
+                          title={sidebarCollapsed ? item.label : undefined}
+                          onClick={() => changeView(item.key)}
+                        >
+                          <item.icon className="workspace-nav-icon" aria-hidden="true" weight={activeView === item.key ? "fill" : "regular"} />
+                          <span>
+                            <strong>{item.label}</strong>
+                            <small>{item.description}</small>
+                          </span>
+                        </button>
+                      ))}
+                    </div>
+                  ) : null;
+                })}
               </nav>
               <div className="sidebar-account">
                 <button type="button" className="sidebar-profile" onClick={() => changeView("account")}>
@@ -176,11 +218,21 @@ export function AppShell({
                   </span>
                 </button>
                 <button type="button" className="sidebar-signout" onClick={onSignOut}><SignOut aria-hidden="true" />Sign out</button>
+                <button
+                  type="button"
+                  className="sidebar-collapse"
+                  aria-label={sidebarCollapsed ? "Expand sidebar" : "Collapse sidebar"}
+                  aria-expanded={!sidebarCollapsed}
+                  onClick={() => setSidebarCollapsed((collapsed) => !collapsed)}
+                >
+                  {sidebarCollapsed ? <CaretRight aria-hidden="true" weight="bold" /> : <CaretLeft aria-hidden="true" weight="bold" />}
+                  <span>{sidebarCollapsed ? "Expand" : "Collapse"}</span>
+                </button>
               </div>
             </aside>
           </>
         ) : null}
-        <main className="page-content">{children}</main>
+        <main className={`page-content view-${activeView}`}>{children}</main>
       </div>
       <footer className="site-footer">
         <span>Planora academic scheduling</span>

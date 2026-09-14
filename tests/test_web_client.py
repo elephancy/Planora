@@ -27,18 +27,22 @@ def test_web_client_assets_and_typescript_contract_exist():
     assert 'src="/src/react/main.tsx"' in index
     assert "createRoot" in (ROOT / "web" / "src" / "react" / "main.tsx").read_text(encoding="utf-8")
     assert "AppShell" in app
-    assert "AUTH_VIEW_GROUPS" not in shell
-    assert 'label: "Plan"' not in shell
-    assert 'label: "Account"' not in shell
-    for label in ("Schedule", "Data", "Review", "Projects", "Advanced"):
+    assert "AUTH_VIEW_GROUPS" in shell
+    assert 'label: "Account"' in shell
+    for label in ("Schedule", "Data", "Review", "Projects", "Insights", "Advanced", "People & access", "Platform", "Super admin"):
         assert f'label: "{label}"' in shell
     assert "workspace-sidebar" in shell
+    assert "sidebar-collapse" in shell
     assert "mobile-nav-toggle" in shell
     assert 'label: "Solver settings"' not in shell
     assert "ScheduleBoard" in app
     assert "ReviewPanel" in app
     assert "ProjectsPanel" in app
     assert "AdminPanel" in app
+    assert "accessSnapshot={accessSnapshot}" in app
+    assert "onAccessChange={applyAccessChange}" in app
+    assert "const shellView: ViewKey" in app
+    assert "{content[shellView]}" in app
     assert "LoginPanel" in app
     assert "privacyContent" in app
     assert "/privacy" in app
@@ -94,7 +98,10 @@ def test_web_client_assets_and_typescript_contract_exist():
     assert "View run details" in board
     assert "Import timetable" in (ROOT / "web" / "src" / "react" / "components" / "OperationsPanel.tsx").read_text(encoding="utf-8")
     assert "Repair Workflow" in (ROOT / "web" / "src" / "react" / "components" / "ReviewPanel.tsx").read_text(encoding="utf-8")
-    assert "Role permission summary" in (ROOT / "web" / "src" / "react" / "components" / "AccessPanel.tsx").read_text(encoding="utf-8")
+    access_panel = (ROOT / "web" / "src" / "react" / "components" / "AccessPanel.tsx").read_text(encoding="utf-8")
+    assert "Approve access" in access_panel
+    assert "Needs approval" in access_panel
+    assert "Save role" in access_panel
     assert ".workspace > * { min-height: 0; }" in styles
     assert ".main-pane {" in styles
     assert ".schedule-shell {" in styles
