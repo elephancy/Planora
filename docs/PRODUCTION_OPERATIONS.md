@@ -90,12 +90,12 @@ Every API response includes `X-Request-ID`. In production or when `PLANORA_STRUC
 
 ## Monitoring
 
-Add external uptime checks for:
+The private `ops` service owns external uptime checks for:
 
 - `https://planora.elfeel.me/api/health`
 - `https://planora.elfeel.me/api/ready`
 
-Use an external monitor such as UptimeRobot, Better Stack, Healthchecks.io, or Hetzner monitoring. Alert on non-2xx responses for two consecutive checks. `/health` confirms the API process is reachable; `/ready` confirms SQLite persistence is writable.
+Do not configure a separate project-level uptime provider. The centralized Prometheus and Blackbox Exporter checks alert on repeated non-2xx responses and keep the project view with the rest of the hosted services. `/health` confirms the API process is reachable; `/ready` confirms SQLite persistence is writable.
 
 On the Hetzner server, alert at:
 
