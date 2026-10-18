@@ -78,11 +78,12 @@ For Brevo or another SMTP provider:
 
 ## Upgrade And Rollback
 
-Production upgrades are published only by the repository's small OIDC caller
-after a successful `main` CI run. The private deployment controller pulls the
-tested digest, runs readiness gates, records a signed receipt, and owns runtime
-rollback. Do not add repository SSH credentials or perform direct host-side
-Git and Compose deployment from this repository.
+The private controller discovers reviewed `main` commits after their required
+CI runs succeed and publication is approved. It owns release configuration and
+holds, immutable publication, readiness gates, signed receipts, and runtime
+rollback. Application workflows carry no production release authority or
+duplicate release manifest. Do not add repository SSH credentials or perform
+direct host-side Git and Compose deployment from this repository.
 
 ## Observability
 

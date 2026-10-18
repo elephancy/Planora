@@ -148,7 +148,12 @@ def test_deployment_scaffold_exists():
     env_example = (ROOT / "deploy" / ".env.example").read_text(encoding="utf-8")
     web_dockerfile = (ROOT / "deploy" / "web.Dockerfile").read_text(encoding="utf-8")
     caddyfile = (ROOT / "deploy" / "Caddyfile").read_text(encoding="utf-8")
-    deploy_workflow = (ROOT / ".github" / "workflows" / "deploy-production.yml").read_text(encoding="utf-8")
+    assert not (ROOT / ".github/workflows/deploy-production.yml").exists()
+    assert not (ROOT / ".github/hetzner-release.json").exists()
+    application_workflows = "\n".join(
+        path.read_text(encoding="utf-8")
+        for path in sorted((ROOT / ".github/workflows").glob("*.y*ml"))
+    )
     assert "python:3.13-slim" in dockerfile
     assert "api.server" in dockerfile
     assert "COPY scripts scripts" in dockerfile
@@ -191,12 +196,11 @@ def test_deployment_scaffold_exists():
     assert "PLANORA_AUTH_SECRET:?PLANORA_AUTH_SECRET is required" in prod_compose
     assert "PLANORA_TOKEN_PEPPER:?PLANORA_TOKEN_PEPPER is required" in prod_compose
     assert "method='HEAD'" in prod_compose
-    assert "HetznerReleaseGateway/.github/workflows/release.yml@f6319b2dbaf4c1f10230c6425967f34553acd61d" in deploy_workflow
-    assert "id-token: write" in deploy_workflow
-    assert "app: planora" in deploy_workflow
-    assert "secrets: inherit" not in deploy_workflow
-    assert "HETZNER_" not in deploy_workflow
-    assert "SSH_PRIVATE_KEY" not in deploy_workflow
+    assert "HetznerReleaseGateway/" not in application_workflows
+    assert "id-token: write" not in application_workflows
+    assert "secrets: inherit" not in application_workflows
+    assert "HETZNER_" not in application_workflows
+    assert "SSH_PRIVATE_KEY" not in application_workflows
 
 
 def test_web_client_uses_root_application_logo():
