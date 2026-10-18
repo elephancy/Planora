@@ -187,6 +187,7 @@ def _email_shell(*, title: str, preview: str, body_html: str) -> str:
     return f"""\
 <!doctype html>
 <html lang="en">
+  <head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><title>{html.escape(title)}</title></head>
   <body style="margin:0;background:#eef3f7;font-family:Inter,Segoe UI,Arial,sans-serif;color:#17212b;">
     <div style="display:none;max-height:0;overflow:hidden;">{html.escape(preview)}</div>
     <table role="presentation" width="100%" cellspacing="0" cellpadding="0" style="background:#eef3f7;padding:36px 12px;">
@@ -208,7 +209,7 @@ def _email_shell(*, title: str, preview: str, body_html: str) -> str:
             <tr>
               <td style="padding:0 32px 32px;font-size:15px;line-height:1.65;color:#405063;">
                 {body_html}
-                <p style="margin:28px 0 0;padding-top:18px;border-top:1px solid #d8e0e8;color:#708096;font-size:13px;">If you did not request this, you can safely ignore this email.</p>
+                <p style="margin:28px 0 0;padding-top:18px;border-top:1px solid #d8e0e8;color:#566577;font-size:13px;">If you did not request this, you can safely ignore this email. Do not share the link or code with anyone.</p>
               </td>
             </tr>
           </table>
@@ -221,6 +222,28 @@ def _email_shell(*, title: str, preview: str, body_html: str) -> str:
 """
 
 
+def _account_email_body(*, summary: str, action: str, code_label: str, url: str, code: str) -> str:
+    safe_url = html.escape(url, quote=True)
+    return (
+        f'<p style="margin:0 0 20px;">{html.escape(summary)}</p>'
+        '<p style="margin:0 0 12px;"><strong>Next step</strong><br>'
+        'Open the secure link below, or enter the code in Planora.</p>'
+        f'<p style="margin:0 0 22px;"><a href="{safe_url}" style="display:inline-block;'
+        'background:#1f669b;color:#ffffff;text-decoration:none;font-weight:700;'
+        f'padding:13px 20px;border-radius:8px;">{html.escape(action)}</a></p>'
+        '<table role="presentation" width="100%" cellpadding="0" cellspacing="0" '
+        'style="background:#e2edf8;border:1px solid #b8cde0;border-radius:8px;">'
+        f'<tr><td style="padding:16px 20px;"><strong>{html.escape(code_label)}</strong><br>'
+        '<span style="display:inline-block;margin-top:8px;letter-spacing:6px;font-size:30px;'
+        f'font-weight:800;color:#0f4d78;">{html.escape(code)}</span></td></tr></table>'
+        '<p style="margin:18px 0;font-size:13px;">The link and code can only be used once. '
+        'If they have expired, request a new email in Planora.</p>'
+        '<p style="margin:0;font-size:13px;">If the button does not work, '
+        'copy this link into your browser:<br>'
+        f'<a href="{safe_url}" style="color:#1f669b;word-break:break-all;">{safe_url}</a></p>'
+    )
+
+
 def build_verification_email(base_url: str, to_email: str, token: str, code: str) -> OutboundEmail:
     url = f"{base_url}/auth/verify?token={token}"
     return OutboundEmail(
@@ -228,20 +251,20 @@ def build_verification_email(base_url: str, to_email: str, token: str, code: str
         subject="Confirm your Planora account",
         body=(
             "Welcome to Planora.\n\n"
-            "Confirm your account by opening this secure link:\n"
+            "Confirm your email to activate your account and access your organization schedules.\n\n"
+            "Next step: open this secure link, or enter the confirmation code in Planora.\n"
             f"{url}\n\n"
             "Or enter this confirmation code in Planora:\n"
             f"{code}\n\n"
-            "If you did not register for Planora, ignore this email."
+            "The link and code can only be used once. If they have expired, request a new email in Planora.\n\n"
+            "If you did not register for Planora, ignore this email. Do not share the link or code with anyone."
         ),
         html_body=_email_shell(
             title="Confirm your Planora account",
             preview="Use the secure link or confirmation code to activate your Planora account.",
-            body_html=(
-                "<p style=\"margin:0 0 18px;\">Welcome to Planora. Confirm your email to activate your account and access your organization schedules.</p>"
-                f"<p style=\"margin:0 0 22px;\"><a href=\"{html.escape(url)}\" style=\"display:inline-block;background:#1f669b;color:#ffffff;text-decoration:none;font-weight:700;padding:13px 20px;border-radius:12px;\">Confirm account</a></p>"
-                "<p style=\"margin:0 0 8px;\">You can also enter this confirmation code:</p>"
-                f"<div style=\"display:inline-block;letter-spacing:6px;font-size:30px;font-weight:800;color:#0f4d78;background:#e2edf8;border:1px solid #b8cde0;border-radius:12px;padding:12px 18px;\">{html.escape(code)}</div>"
+            body_html=_account_email_body(
+                summary="Welcome to Planora. Confirm your email to activate your account and access your organization schedules.",
+                action="Confirm account", code_label="Confirmation code", url=url, code=code,
             ),
         ),
         inline_images=_planora_email_images(),
@@ -254,21 +277,20 @@ def build_password_reset_email(base_url: str, to_email: str, token: str, code: s
         to_email=to_email,
         subject="Reset your Planora password",
         body=(
-            "We received a request to reset your Planora password.\n\n"
-            "Open this secure link to choose a new password:\n"
+            "We received a request to reset your Planora password. Your current password stays in place until you choose a new one.\n\n"
+            "Next step: open this secure link to choose a new password, or enter the reset code in Planora.\n"
             f"{url}\n\n"
             "Or enter this reset code in Planora:\n"
             f"{code}\n\n"
-            "If you did not request this, ignore this email."
+            "The link and code can only be used once. If they have expired, request a new email in Planora.\n\n"
+            "If you did not request this, ignore this email. Do not share the link or code with anyone."
         ),
         html_body=_email_shell(
             title="Reset your Planora password",
             preview="Use the secure link or reset code to choose a new Planora password.",
-            body_html=(
-                "<p style=\"margin:0 0 18px;\">We received a request to reset your Planora password. Use the secure link below or enter the code in Planora.</p>"
-                f"<p style=\"margin:0 0 22px;\"><a href=\"{html.escape(url)}\" style=\"display:inline-block;background:#1f669b;color:#ffffff;text-decoration:none;font-weight:700;padding:13px 20px;border-radius:12px;\">Reset password</a></p>"
-                "<p style=\"margin:0 0 8px;\">Reset code:</p>"
-                f"<div style=\"display:inline-block;letter-spacing:6px;font-size:30px;font-weight:800;color:#0f4d78;background:#e2edf8;border:1px solid #b8cde0;border-radius:12px;padding:12px 18px;\">{html.escape(code)}</div>"
+            body_html=_account_email_body(
+                summary="We received a request to reset your Planora password. Your current password stays in place until you choose a new one.",
+                action="Reset password", code_label="Reset code", url=url, code=code,
             ),
         ),
         inline_images=_planora_email_images(),
