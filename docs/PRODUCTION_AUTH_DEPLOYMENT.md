@@ -62,11 +62,12 @@ PLANORA_BACKUP_KEEP_COUNT=800
 ```
 
 ## Deployment
-The official production release path is the repository's minimal OIDC caller.
-After `main` CI succeeds, it invokes the immutable shared release workflow;
-the private deployment controller builds and verifies the candidate, records
-the release receipt, and performs rollback when a gate fails. Repository or
-GitHub Actions SSH credentials are not part of this path.
+The private controller owns official production release policy and all release
+holds. When publication is approved, it discovers reviewed `main` commits after
+the required CI runs succeed, verifies the exact source and CI attempt, publishes
+immutable images, and records deployment receipts and runtime rollback evidence.
+This repository has no production caller, duplicate release manifest, or host
+deployment credentials. Retiring the old caller does not clear a release hold.
 
 The first centralized launch intentionally uses new, isolated data and backup
 volumes. It does not import, rename, mount, or delete any legacy Planora
