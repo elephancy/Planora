@@ -1,6 +1,6 @@
 -r requirements.txt
 pytest==9.0.3
-Pygments==2.20.0
+Pygments==2.21.0
 pytest-cov==7.1.0
 coverage==7.15.2
 ruff==0.14.10
