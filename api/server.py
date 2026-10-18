@@ -4,6 +4,7 @@ import argparse
 import hashlib
 import json
 import os
+import re
 import secrets
 import sys
 import tempfile
@@ -11,6 +12,7 @@ import threading
 import time
 import traceback
 from contextlib import contextmanager
+from datetime import datetime, timezone
 from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 from pathlib import Path
 from urllib.parse import parse_qs, urlparse
@@ -406,17 +408,57 @@ class PlanoraApiHandler(BaseHTTPRequestHandler):
     def log_message(self, format: str, *args: Any) -> None:  # noqa: A003
         if not production_mode() and os.environ.get("PLANORA_STRUCTURED_LOGS", "0").lower() not in {"1", "true", "yes", "on"}:
             return
-        record = {
-            "timestamp": time.time(),
-            "level": "info",
-            "event": "http_request",
-            "client": str(self.client_address[0]),
-            "method": self.command,
-            "path": urlparse(self.path).path,
-            "request_id": str(getattr(self, "_request_id", "")),
-            "message": format % args,
-        }
-        print(json.dumps(record, separators=(",", ":")), file=sys.stderr, flush=True)
+        # BaseHTTPRequestHandler's freeform format/args contain the original URL
+        # and can include credentials or a request body. Build a safe event instead.
+        try:
+            path = urlparse(str(getattr(self, "path", ""))[:2048]).path
+            templates = _openapi_schema()["paths"]
+            route = path if path in templates else "/unknown"
+            if route == "/unknown":
+                parts = path.split("/")
+                for template in templates:
+                    expected = template.split("/")
+                    if len(parts) == len(expected) and all(
+                        actual == segment or (segment.startswith("{") and segment.endswith("}"))
+                        for actual, segment in zip(parts, expected)
+                    ):
+                        route = template
+                        break
+            method = str(getattr(self, "command", "")).upper()
+            if method not in {"GET", "POST", "PUT", "PATCH", "DELETE", "HEAD", "OPTIONS"}:
+                method = "UNKNOWN"
+            status = None
+            if format == '"%s" %s %s' and len(args) >= 2:
+                try:
+                    candidate = int(args[1])
+                    if 100 <= candidate <= 599:
+                        status = candidate
+                except (TypeError, ValueError):
+                    pass
+            request_id = str(getattr(self, "_request_id", ""))
+            if not re.fullmatch(r"[A-Za-z0-9_-]{8,128}", request_id):
+                request_id = secrets.token_hex(16)
+            record = {
+                "schema_version": "ops.log.v1",
+                "event_id": secrets.token_hex(16),
+                "timestamp": datetime.now(timezone.utc).isoformat(timespec="milliseconds").replace("+00:00", "Z"),
+                "level": "unknown" if status is None else "error" if status >= 500 else "warn" if status >= 400 else "info",
+                "project": "planora",
+                "service": "api",
+                "environment": "production" if production_mode() else "development",
+                "event": "request.completed" if status is not None else "server.message",
+                "request_id": request_id,
+                "message": f"{method} {route} returned {status}" if status is not None else "HTTP server reported an event",
+                "http": {"route": route},
+            }
+            if method != "UNKNOWN":
+                record["http"]["method"] = method
+            if status is not None:
+                record["http"]["status_code"] = status
+            print(json.dumps(record, separators=(",", ":")), file=sys.stdout, flush=True)
+        except Exception:
+            # A logging failure must not fail or expose an application request.
+            return
 
     def do_GET(self) -> None:  # noqa: N802
         self._request_id = self.headers.get("X-Request-ID") or secrets.token_hex(8)
