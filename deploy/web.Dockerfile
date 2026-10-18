@@ -10,7 +10,7 @@ ARG VITE_PLANORA_API_URL=/api
 ENV VITE_PLANORA_API_URL=${VITE_PLANORA_API_URL}
 RUN npm run build
 
-FROM caddy:2.9-alpine
+FROM caddy:2.11-alpine
 
 RUN addgroup -S -g 10001 planora-web \
     && adduser -S -D -H -u 10001 -G planora-web planora-web \
