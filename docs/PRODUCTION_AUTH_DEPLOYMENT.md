@@ -50,16 +50,20 @@ PLANORA_REGISTRATION_ENABLED=1
 PLANORA_EMAIL_VERIFICATION_REQUIRED=1
 PLANORA_DOMAIN=scheduler.example.edu
 PLANORA_TLS_EMAIL=infra@example.edu
-PLANORA_SMTP_HOST=smtp-relay.brevo.com
-PLANORA_SMTP_PORT=587
-PLANORA_SMTP_USERNAME=<brevo-smtp-login>
-PLANORA_SMTP_PASSWORD=<planora-specific-smtp-key>
-PLANORA_SMTP_FROM=Planora <planora@notify.elfeel.me>
-PLANORA_SMTP_STARTTLS=1
 PLANORA_RETENTION_DAYS=183
 PLANORA_BACKUP_KEEP_DAYS=183
 PLANORA_BACKUP_KEEP_COUNT=800
 ```
+
+## Account notifications
+
+Ops supplies the signed shared notification bundle at `/run/ops/shared-notifications`
+and a protected profile directory at `/run/ops/notifications`. Configure the sender,
+SMTP mode, branding and canonical action origin in Ops. This repository contains
+only auth event adapters and does not store a separate SMTP configuration or email
+template. Production startup refuses to serve without configured Ops SMTP delivery.
+The private controller installs the read-only mounts before rollout. Independent
+self-hosting must provision the same Ops bundle and profile contract.
 
 ## Deployment
 The private controller owns official production release policy and all release

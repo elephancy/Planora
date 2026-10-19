@@ -39,6 +39,7 @@ from api.actions import (
 )
 from api.schema import openapi_schema as _openapi_schema
 from api import auth_helpers
+from services.ops_logging_adapter import ops_logger
 from api.rate_limit import RateLimitExceeded, check_rate_limit as _check_rate_limit_impl
 from api.system_status import system_status_payload as _system_status_payload_impl
 from services.application_service import (
@@ -406,8 +407,6 @@ class PlanoraApiHandler(BaseHTTPRequestHandler):
                 self._connection_admitted = False
 
     def log_message(self, format: str, *args: Any) -> None:  # noqa: A003
-        if not production_mode() and os.environ.get("PLANORA_STRUCTURED_LOGS", "0").lower() not in {"1", "true", "yes", "on"}:
-            return
         # BaseHTTPRequestHandler's freeform format/args contain the original URL
         # and can include credentials or a request body. Build a safe event instead.
         try:
@@ -438,24 +437,18 @@ class PlanoraApiHandler(BaseHTTPRequestHandler):
             request_id = str(getattr(self, "_request_id", ""))
             if not re.fullmatch(r"[A-Za-z0-9_-]{8,128}", request_id):
                 request_id = secrets.token_hex(16)
-            record = {
-                "schema_version": "ops.log.v1",
-                "event_id": secrets.token_hex(16),
-                "timestamp": datetime.now(timezone.utc).isoformat(timespec="milliseconds").replace("+00:00", "Z"),
-                "level": "unknown" if status is None else "error" if status >= 500 else "warn" if status >= 400 else "info",
-                "project": "planora",
-                "service": "api",
-                "environment": "production" if production_mode() else "development",
-                "event": "request.completed" if status is not None else "server.message",
-                "request_id": request_id,
-                "message": f"{method} {route} returned {status}" if status is not None else "HTTP server reported an event",
-                "http": {"route": route},
-            }
+            http = {"route": route}
             if method != "UNKNOWN":
-                record["http"]["method"] = method
+                http["method"] = method
             if status is not None:
-                record["http"]["status_code"] = status
-            print(json.dumps(record, separators=(",", ":")), file=sys.stdout, flush=True)
+                http["status_code"] = status
+            ops_logger().log(
+                "unknown" if status is None else "error" if status >= 500 else "warn" if status >= 400 else "info",
+                "request.completed" if status is not None else "server.message",
+                f"{method} {route} returned {status}" if status is not None else "HTTP server reported an event",
+                request_id=request_id,
+                http=http,
+            )
         except Exception:
             # A logging failure must not fail or expose an application request.
             return

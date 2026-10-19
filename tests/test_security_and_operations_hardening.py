@@ -125,10 +125,16 @@ def test_production_auth_configuration_validates_before_serving(monkeypatch):
         validate_auth_configuration()
 
     monkeypatch.setenv("PLANORA_PUBLIC_BASE_URL", "https://scheduler.example.edu")
-    with pytest.raises(RuntimeError, match="SMTP_HOST is required"):
+    with pytest.raises(RuntimeError, match="Ops SMTP notification delivery is required"):
         validate_auth_configuration()
 
     monkeypatch.setenv("PLANORA_SMTP_HOST", "smtp.example.edu")
+    with pytest.raises(RuntimeError, match="Ops SMTP notification delivery is required"):
+        validate_auth_configuration()  # Legacy app settings cannot bypass the Ops profile.
+    from services import password_auth_service
+    monkeypatch.setattr(password_auth_service, "_notifier", lambda: type(
+        "FixtureNotifier", (), {"status": lambda self: {"configured": True, "mode": "smtp"}}
+    )())
     validate_auth_configuration()
 
 

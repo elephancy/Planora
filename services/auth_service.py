@@ -113,7 +113,7 @@ def validate_auth_configuration() -> None:
     verification_base_url("")
     if not smtp_configured():
         raise RuntimeError(
-            "PLANORA_SMTP_HOST is required in production so verification and "
+            "Ops SMTP notification delivery is required in production so verification and "
             "password-reset secrets are never returned to API callers."
         )
 

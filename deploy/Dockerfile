@@ -16,7 +16,6 @@ COPY connectors connectors
 COPY core core
 COPY product product
 COPY services services
-COPY web/public/app-icon.png services/assets/planora_elephant.png
 COPY scripts scripts
 COPY utils utils
 
