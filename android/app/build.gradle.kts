@@ -110,11 +110,11 @@ android {
 dependencies {
   val composeBom = platform("androidx.compose:compose-bom:2024.10.01")
 
-  implementation("androidx.core:core-ktx:1.15.0")
+  implementation("androidx.core:core-ktx:1.19.1")
   implementation("androidx.activity:activity-compose:1.9.3")
   implementation("androidx.lifecycle:lifecycle-runtime-compose:2.8.7")
   implementation("androidx.lifecycle:lifecycle-viewmodel-compose:2.8.7")
-  implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.8.1")
+  implementation("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.11.0")
 
   implementation(composeBom)
   androidTestImplementation(composeBom)
