@@ -92,11 +92,7 @@ jobs:
           profile: pixel_7
           disable-animations: true
           working-directory: ./android
-          script: |
-            ./gradlew --no-daemon --stacktrace :app:connectedDebugAndroidTest || {
-              find app/build/outputs/androidTest-results -type f -name '*.xml' -exec cat {} \;
-              exit 1
-            }
+          script: ./gradlew --no-daemon --stacktrace :app:connectedDebugAndroidTest || (find app/build/outputs/androidTest-results -type f -name '*.xml' -exec cat {} \; ; exit 1)
 
       - name: Upload Android test reports
         if: ${{ always() }}
