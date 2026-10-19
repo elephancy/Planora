@@ -92,7 +92,22 @@ jobs:
           profile: pixel_7
           disable-animations: true
           working-directory: ./android
-          script: ./gradlew --no-daemon --stacktrace :app:connectedDebugAndroidTest
+          script: |
+            ./gradlew --no-daemon --stacktrace :app:connectedDebugAndroidTest || {
+              find app/build/outputs/androidTest-results -type f -name '*.xml' -exec cat {} \;
+              exit 1
+            }
+
+      - name: Upload Android test reports
+        if: ${{ always() }}
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: planora-android-tests-${{ github.sha }}
+          if-no-files-found: ignore
+          path: |
+            android/app/build/reports/tests/
+            android/app/build/reports/androidTests/
+            android/app/build/outputs/androidTest-results/
 
       - name: Build release bundle
         run: ./gradlew --no-daemon --stacktrace :app:bundleRelease
