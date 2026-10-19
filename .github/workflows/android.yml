@@ -29,7 +29,7 @@ permissions:
 
 concurrency:
   group: ci-${{ github.workflow }}-${{ github.ref }}
-  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' || github.event_name == 'push' }}
 
 jobs:
   verify:
@@ -65,17 +65,8 @@ jobs:
       - name: Make Gradle wrapper executable
         run: chmod +x ./gradlew
 
-      - name: Run unit tests
-        run: ./gradlew --no-daemon --stacktrace :app:testDebugUnitTest
-
-      - name: Run Android lint
-        run: ./gradlew --no-daemon --stacktrace :app:lintDebug
-
-      - name: Build debug APK
-        run: ./gradlew --no-daemon --stacktrace :app:assembleDebug
-
-      - name: Build instrumentation APK
-        run: ./gradlew --no-daemon --stacktrace :app:assembleDebugAndroidTest
+      - name: Run unit tests, lint, and build Android artifacts
+        run: ./gradlew --no-daemon --stacktrace :app:testDebugUnitTest :app:lintDebug :app:assembleDebug :app:assembleDebugAndroidTest :app:bundleRelease
 
       - name: Enable KVM for device tests
         run: |
@@ -104,9 +95,6 @@ jobs:
             android/app/build/reports/tests/
             android/app/build/reports/androidTests/
             android/app/build/outputs/androidTest-results/
-
-      - name: Build release bundle
-        run: ./gradlew --no-daemon --stacktrace :app:bundleRelease
 
       - name: Upload Android build artifacts
         uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
