@@ -23,8 +23,6 @@ from services.auth_service import (
 )
 from services.password_auth_service import (
     build_password_reset_email,
-    build_verification_email,
-    send_email,
     verification_base_url,
 )
 from services.persistence_service import PersistenceStore
@@ -158,7 +156,7 @@ def test_request_base_url_ignores_host_and_forwarded_headers_without_proxy_trust
         "reset_secret",
         "123456",
     )
-    assert "attacker.example" not in reset_email.body
+    assert reset_email.action_path == "/login?reset_token=reset_secret"
 
     monkeypatch.setenv("PLANORA_TRUST_PROXY_HEADERS", "1")
     handler.headers = {
@@ -172,66 +170,6 @@ def test_request_base_url_ignores_host_and_forwarded_headers_without_proxy_trust
         "X-Forwarded-Proto": "javascript",
     }
     assert request_base_url(handler) == "http://127.0.0.1:8787"
-
-
-def test_account_email_embeds_the_elephant_and_uses_the_planora_palette():
-    message = build_verification_email(
-        "https://planora.example",
-        "student@example.edu",
-        "verification-token",
-        "123456",
-    )
-
-    assert 'src="cid:planora-elephant"' in message.html_body
-    assert "#1f669b" in message.html_body
-    assert "#8d3bd1" not in message.html_body
-    assert len(message.inline_images) == 1
-    image = message.inline_images[0]
-    assert image.content_id == "planora-elephant"
-    assert image.content_type == "image/png"
-    assert image.content.startswith(b"\x89PNG\r\n\x1a\n")
-
-
-def test_smtp_message_attaches_the_elephant_as_an_inline_related_part(monkeypatch):
-    sent = []
-
-    class FakeSmtp:
-        def __init__(self, host, port, timeout):
-            assert (host, port, timeout) == ("smtp.example", 2525, 15)
-
-        def __enter__(self):
-            return self
-
-        def __exit__(self, *_args):
-            return None
-
-        def starttls(self):
-            return None
-
-        def send_message(self, message):
-            sent.append(message)
-
-    monkeypatch.setenv("PLANORA_SMTP_HOST", "smtp.example")
-    monkeypatch.setenv("PLANORA_SMTP_PORT", "2525")
-    monkeypatch.setenv("PLANORA_SMTP_FROM", "Planora <no-reply@planora.example>")
-    monkeypatch.setenv("PLANORA_SMTP_STARTTLS", "1")
-    monkeypatch.setattr("services.password_auth_service.smtplib.SMTP", FakeSmtp)
-
-    send_email(
-        build_verification_email(
-            "https://planora.example",
-            "student@example.edu",
-            "verification-token",
-            "123456",
-        )
-    )
-
-    assert len(sent) == 1
-    related = [part for part in sent[0].walk() if part.get("Content-ID") == "<planora-elephant>"]
-    assert len(related) == 1
-    assert related[0].get_content_type() == "image/png"
-    assert related[0].get_content_disposition() == "inline"
-    assert related[0].get_payload(decode=True).startswith(b"\x89PNG\r\n\x1a\n")
 
 
 def test_csrf_gate_exempts_only_public_auth_posts():
@@ -363,7 +301,6 @@ def test_production_api_rejects_anonymous_forged_and_local_admin(tmp_path, monke
     monkeypatch.setenv("PLANORA_AUTH_SECRET", auth_secret)
     monkeypatch.setenv("PLANORA_TOKEN_PEPPER", token_pepper)
     monkeypatch.setenv("PLANORA_PUBLIC_BASE_URL", "https://scheduler.example.edu")
-    monkeypatch.setenv("PLANORA_SMTP_HOST", "smtp.example.edu")
 
     store = PersistenceStore(database_path)
     account = Principal(
@@ -393,24 +330,30 @@ def test_production_api_rejects_anonymous_forged_and_local_admin(tmp_path, monke
             "PLANORA_AUTH_SECRET": auth_secret,
             "PLANORA_TOKEN_PEPPER": token_pepper,
             "PLANORA_PUBLIC_BASE_URL": "https://scheduler.example.edu",
-            "PLANORA_SMTP_HOST": "smtp.example.edu",
         }
     )
     process = subprocess.Popen(
-        [sys.executable, "-m", "api.server", "--host", "127.0.0.1", "--port", str(port)],
+        [sys.executable, "-c", "from services import password_auth_service as p; "
+         "p._notifier=lambda: type('FixtureNotifier', (), {'status': lambda self: {'configured':True,'mode':'smtp'}})(); "
+         "from api.server import main; main()", "--host", "127.0.0.1", "--port", str(port)],
         cwd=str(ROOT),
         env=env,
         stdout=subprocess.DEVNULL,
-        stderr=subprocess.DEVNULL,
+        stderr=subprocess.PIPE,
         text=True,
     )
     try:
         deadline = time.time() + 10
         while time.time() < deadline and _status(f"http://127.0.0.1:{port}/health") != 200:
             time.sleep(0.1)
+        if process.poll() is not None:
+            raise AssertionError("API fixture exited before readiness: " + process.stderr.read())
         for path in ("/health", "/ready"):
             status, body = _status_and_body(f"http://127.0.0.1:{port}{path}", method="HEAD")
-            assert status == 200
+            if status != 200:
+                process.terminate()
+                _, diagnostic = process.communicate(timeout=5)
+                raise AssertionError(f"API fixture readiness failed ({status}): {diagnostic}")
             assert body == b""
         status, body = _status_and_body(f"http://127.0.0.1:{port}/auth/config", method="HEAD")
         assert status == 200

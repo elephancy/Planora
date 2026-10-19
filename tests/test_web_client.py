@@ -187,11 +187,11 @@ def test_deployment_scaffold_exists():
     assert "tls {$PLANORA_TLS_EMAIL}" not in caddyfile
     assert "PLANORA_DB_PATH" in env_example
     assert "VITE_PLANORA_API_URL" in env_example
-    assert "PLANORA_SMTP_HOST" in env_example
+    assert "PLANORA_SMTP_HOST" not in env_example
     assert "PLANORA_REGISTRATION_ENABLED" in env_example
     assert "PLANORA_AUTH_SECRET" in env_example
     assert "PLANORA_TOKEN_PEPPER" in env_example
-    assert "PLANORA_SMTP_PASSWORD" in env_example
+    assert "PLANORA_SMTP_PASSWORD" not in env_example
     assert "PLANORA_AUTH_SECRET_FILE" not in prod_compose
     assert "PLANORA_AUTH_SECRET:?PLANORA_AUTH_SECRET is required" in prod_compose
     assert "PLANORA_TOKEN_PEPPER:?PLANORA_TOKEN_PEPPER is required" in prod_compose

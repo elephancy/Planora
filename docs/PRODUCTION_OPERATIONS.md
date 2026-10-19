@@ -63,12 +63,19 @@ Restore procedure:
 
 ## Email Deliverability
 
-For Brevo or another SMTP provider:
+Ops owns sender profiles, SMTP transport, templates and branding. Configure these
+in Ops and let the private controller mount the verified bundle and protected
+profile into Planora. Keep SPF, DKIM and DMARC aligned with that central sender.
+Planora supplies recipients, auth paths, tokens and codes; it has no SMTP settings.
+Never use real account email as a deployment smoke test without authorization.
 
-- Verify the sending domain.
-- Add SPF, DKIM, and DMARC records in Cloudflare.
-- Set `PLANORA_SMTP_HOST`, `PLANORA_SMTP_PORT`, `PLANORA_SMTP_USERNAME`, `PLANORA_SMTP_PASSWORD`, `PLANORA_EMAIL_FROM`, and `PLANORA_PUBLIC_BASE_URL` in `deploy/.env`.
-- Use Admin -> Email Deliverability to send a test message.
+## Request Logs
+
+The API emits safe request events through the mounted Ops logging SDK at
+`/run/ops/shared-logging/python/ops_logging.py`. It supplies route templates,
+methods, response status and validated request IDs. Ops supplies the schema,
+project/service identity, environment, release and minimum severity. Configure
+these in Ops; do not add logging settings or an exporter to Planora.
 
 ## Access And Audit
 
