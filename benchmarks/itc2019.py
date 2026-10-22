@@ -7,7 +7,7 @@ from pathlib import Path
 import re
 import time
 from typing import Any, Iterable, Mapping, Sequence
-from xml.etree import ElementTree
+from utils import xml_security as ElementTree
 
 from ortools.sat.python import cp_model
 

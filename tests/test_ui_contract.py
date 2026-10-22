@@ -75,22 +75,13 @@ def test_local_client_and_openapi_publish_the_same_contract():
 def test_remote_client_sends_the_configured_bearer_token(monkeypatch):
     captured = {}
 
-    class Response:
-        def __enter__(self):
-            return self
-
-        def __exit__(self, *_args):
-            return False
-
-        def read(self):
-            return b'{"ui_contract": {"contract_version": "planora.ui.v1"}}'
-
-    def fake_urlopen(request, timeout):
+    def fake_read_http(request, *, timeout, maximum):
         captured["authorization"] = request.get_header("Authorization")
         captured["timeout"] = timeout
-        return Response()
+        assert maximum == 16 * 1024 * 1024
+        return b'{"ui_contract": {"contract_version": "planora.ui.v1"}}'
 
-    monkeypatch.setattr("ui.backend_client.urllib.request.urlopen", fake_urlopen)
+    monkeypatch.setattr("ui.backend_client.read_http", fake_read_http)
 
     client = HttpBackendClient("https://planora.example/api", bearer_token="secret-token")
     client.capabilities()

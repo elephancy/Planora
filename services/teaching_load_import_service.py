@@ -3,7 +3,7 @@ from __future__ import annotations
 import re
 import posixpath
 import struct
-import xml.etree.ElementTree as ET
+from utils import xml_security as ET
 from pathlib import Path, PurePosixPath
 from typing import Any, BinaryIO, Dict, Iterable, List
 from zipfile import BadZipFile, ZipFile, ZipInfo

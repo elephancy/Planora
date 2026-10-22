@@ -30,6 +30,7 @@ from utils.generator import generate_instance, instance_to_json
 from utils.io import instance_from_json
 from utils.process_memory import peak_rss_kib
 from utils.specs import validate_schedule_against_instance
+from utils.http_security import read_http
 
 
 RESULT_MARKER = "PLANORA_E2E_BENCHMARK_RESULT="
@@ -369,10 +370,12 @@ def _http_json(
         headers["Content-Type"] = "application/json"
     request = urllib.request.Request(url, data=body, headers=headers, method=method)
     try:
-        with urllib.request.urlopen(request, timeout=float(timeout)) as response:  # nosec B310
-            raw = response.read()
+        raw = read_http(request, timeout=float(timeout), maximum=16 * 1024 * 1024)
     except urllib.error.HTTPError as exc:
-        detail = exc.read().decode("utf-8", errors="replace")
+        detail_bytes = exc.read(16 * 1024 * 1024 + 1)
+        if len(detail_bytes) > 16 * 1024 * 1024:
+            raise ValueError("HTTP error response exceeds byte limit") from exc
+        detail = detail_bytes.decode("utf-8", errors="replace")
         raise RuntimeError(f"HTTP {exc.code} from {url}: {detail}") from exc
     decoded = json.loads(raw.decode("utf-8"))
     if not isinstance(decoded, dict):
