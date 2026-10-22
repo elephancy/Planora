@@ -1,0 +1,1562 @@
+{
+  "version": 1,
+  "exceptions": [
+    {
+      "scanner": "semgrep",
+      "rule_id": "python.lang.security.insecure-hash-algorithm-sha1",
+      "path": "benchmarks/cbctt_corpus.py",
+      "start_line": 806,
+      "end_line": 806,
+      "source_sha256": "9c5065d20e49acfd5bfc3b4f642be5990bb2cadb6e0bbecc3ca926ed55c60056",
+      "reason": "This SHA1 is a Git blob or Software Heritage raw content identifier, with explicit usedforsecurity=False. The same bytes also require separately pinned SHA256 and exact length; golden identifier and existing corpus integrity tests pass. It is not an authentication, password or signing digest."
+    },
+    {
+      "scanner": "semgrep",
+      "rule_id": "python.lang.security.insecure-hash-algorithm-sha1",
+      "path": "benchmarks/cbctt_corpus.py",
+      "start_line": 807,
+      "end_line": 807,
+      "source_sha256": "9c5065d20e49acfd5bfc3b4f642be5990bb2cadb6e0bbecc3ca926ed55c60056",
+      "reason": "This SHA1 is a Git blob or Software Heritage raw content identifier, with explicit usedforsecurity=False. The same bytes also require separately pinned SHA256 and exact length; golden identifier and existing corpus integrity tests pass. It is not an authentication, password or signing digest."
+    },
+    {
+      "scanner": "semgrep",
+      "rule_id": "python.lang.security.insecure-hash-algorithm-sha1",
+      "path": "benchmarks/itc2019_corpus.py",
+      "start_line": 372,
+      "end_line": 372,
+      "source_sha256": "4f79ace5487e002d6fd0b88f79d327877662fd1e6e15d08829cc0c533279951c",
+      "reason": "This SHA1 is a Git blob or Software Heritage raw content identifier, with explicit usedforsecurity=False. The same bytes also require separately pinned SHA256 and exact length; golden identifier and existing corpus integrity tests pass. It is not an authentication, password or signing digest."
+    },
+    {
+      "scanner": "semgrep",
+      "rule_id": "python.lang.security.audit.exec-detected",
+      "path": "benchmarks/probe_diagnostics/agh_v10/agent-aghfal17-native-v10-generic-validator.py",
+      "start_line": 46,
+      "end_line": 46,
+      "source_sha256": "5a64e57fb81d088e97dd6f471657b9a5599d31e9fbf014dce2b31f3fd0bf09b6",
+      "reason": "This historical generic validator reads its inherited captured runner descriptor once, verifies both admitted hash values, and compiles the same bytes. Its fixed benchmark supervisor supplies the captured runner and manifest; this is internal probe replay rather than evaluation of user input."
+    },
+    {
+      "scanner": "semgrep",
+      "rule_id": "python.lang.security.audit.exec-detected",
+      "path": "benchmarks/probe_diagnostics/agh_v10/agent-aghfal17-native-v10-runner.py",
+      "start_line": 645,
+      "end_line": 645,
+      "source_sha256": "a12bd626aab4d74212aa63c6c202504ec3994d200cdacf1faa53581ef6fdcf32",
+      "reason": "This historical runtime loader executes the same descriptor bytes after exact size and SHA256 admission. Its runtime bundle admission verifies required memfd seals, pinned RECORD-derived source entries and descriptor identity before import. Actual Linux mutable-descriptor and digest-drift negatives reject."
+    },
+    {
+      "scanner": "semgrep",
+      "rule_id": "python.lang.security.audit.exec-detected",
+      "path": "benchmarks/probe_diagnostics/agh_v10/agent-aghfal17-native-v10-runner.py",
+      "start_line": 1236,
+      "end_line": 1236,
+      "source_sha256": "a12bd626aab4d74212aa63c6c202504ec3994d200cdacf1faa53581ef6fdcf32",
+      "reason": "This frozen benchmark import hook hashes the immutable source bytes against its fixed EXPECTED_HASHES label before compiling those same bytes. It receives sources through the sealed capture path. Actual exact-byte execution and changed-source rejection were checked for every historical variant."
+    },
+    {
+      "scanner": "semgrep",
+      "rule_id": "python.lang.security.use-defused-xml",
+      "path": "benchmarks/probe_diagnostics/agh_v10/agent-aghfal17-native-v10-supervisor.py",
+      "start_line": 27,
+      "end_line": 27,
+      "source_sha256": "ca162e1e72054837c4dd0d505d6ba037a8516e805011aabbd7b9e42374c714a0",
+      "reason": "This frozen offline supervisor parses a bounded private child artifact from its fixed hash-admitted producer, which uses escaped ElementTree serialization. Normal product, worker, web and CI entry paths exclude this archive. This intentional historical stdlib parser does not reject DTDs or make untrusted XML safe."
+    },
+    {
+      "scanner": "semgrep",
+      "rule_id": "python.lang.security.audit.exec-detected",
+      "path": "benchmarks/probe_diagnostics/agh_v11/agent-aghfal17-native-v11-generic-validator.py",
+      "start_line": 46,
+      "end_line": 46,
+      "source_sha256": "9a27f1bfb526938f60c28d50827e454fbdcf072218c5d28f6e5c7e6440757b33",
+      "reason": "This historical generic validator reads its inherited captured runner descriptor once, verifies both admitted hash values, and compiles the same bytes. Its fixed benchmark supervisor supplies the captured runner and manifest; this is internal probe replay rather than evaluation of user input."
+    },
+    {
+      "scanner": "semgrep",
+      "rule_id": "python.lang.security.audit.exec-detected",
+      "path": "benchmarks/probe_diagnostics/agh_v11/agent-aghfal17-native-v11-runner.py",
+      "start_line": 645,
+      "end_line": 645,
+      "source_sha256": "36a74a2d3cb744312ea9fd29018324b04c3f7a280311da8b62fc57b8afd4614b",
+      "reason": "This historical runtime loader executes the same descriptor bytes after exact size and SHA256 admission. Its runtime bundle admission verifies required memfd seals, pinned RECORD-derived source entries and descriptor identity before import. Actual Linux mutable-descriptor and digest-drift negatives reject."
+    },
+    {
+      "scanner": "semgrep",
+      "rule_id": "python.lang.security.audit.exec-detected",
+      "path": "benchmarks/probe_diagnostics/agh_v11/agent-aghfal17-native-v11-runner.py",
+      "start_line": 1236,
+      "end_line": 1236,
+      "source_sha256": "36a74a2d3cb744312ea9fd29018324b04c3f7a280311da8b62fc57b8afd4614b",
+      "reason": "This frozen benchmark import hook hashes the immutable source bytes against its fixed EXPECTED_HASHES label before compiling those same bytes. It receives sources through the sealed capture path. Actual exact-byte execution and changed-source rejection were checked for every historical variant."
+    },
+    {
+      "scanner": "semgrep",
+      "rule_id": "python.lang.security.use-defused-xml",
+      "path": "benchmarks/probe_diagnostics/agh_v11/agent-aghfal17-native-v11-supervisor.py",
+      "start_line": 27,
+      "end_line": 27,
+      "source_sha256": "959f6cb17d2f6c145896e8d55d8400c5c951acc0d52b44508b13b2efb220c493",
+      "reason": "This frozen offline supervisor parses a bounded private child artifact from its fixed hash-admitted producer, which uses escaped ElementTree serialization. Normal product, worker, web and CI entry paths exclude this archive. This intentional historical stdlib parser does not reject DTDs or make untrusted XML safe."
+    },
+    {
+      "scanner": "semgrep",
+      "rule_id": "python.lang.security.audit.exec-detected",
+      "path": "benchmarks/probe_diagnostics/agh_v12/agent-aghfal17-native-v12-generic-validator.py",
+      "start_line": 46,
+      "end_line": 46,
+      "source_sha256": "142f962f5e9b8a016c582dcbda9124bbc11d8692abac31d8404481a113f82a70",
+      "reason": "This historical generic validator reads its inherited captured runner descriptor once, verifies both admitted hash values, and compiles the same bytes. Its fixed benchmark supervisor supplies the captured runner and manifest; this is internal probe replay rather than evaluation of user input."
+    },
+    {
+      "scanner": "semgrep",
+      "rule_id": "python.lang.security.audit.exec-detected",
+      "path": "benchmarks/probe_diagnostics/agh_v12/agent-aghfal17-native-v12-runner.py",
+      "start_line": 645,
+      "end_line": 645,
+      "source_sha256": "093f06639b0c21539fcaad93d986e013dbeb57e67cc290edbe0029a546f28c11",
+      "reason": "This historical runtime loader executes the same descriptor bytes after exact size and SHA256 admission. Its runtime bundle admission verifies required memfd seals, pinned RECORD-derived source entries and descriptor identity before import. Actual Linux mutable-descriptor and digest-drift negatives reject."
+    },
+    {
+      "scanner": "semgrep",
+      "rule_id": "python.lang.security.audit.exec-detected",
+      "path": "benchmarks/probe_diagnostics/agh_v12/agent-aghfal17-native-v12-runner.py",
+      "start_line": 1236,
+      "end_line": 1236,
+      "source_sha256": "093f06639b0c21539fcaad93d986e013dbeb57e67cc290edbe0029a546f28c11",
+      "reason": "This frozen benchmark import hook hashes the immutable source bytes against its fixed EXPECTED_HASHES label before compiling those same bytes. It receives sources through the sealed capture path. Actual exact-byte execution and changed-source rejection were checked for every historical variant."
+    },
+    {
+      "scanner": "semgrep",
+      "rule_id": "python.lang.security.use-defused-xml",
+      "path": "benchmarks/probe_diagnostics/agh_v12/agent-aghfal17-native-v12-supervisor.py",
+      "start_line": 27,
+      "end_line": 27,
+      "source_sha256": "5dee3a7133b62931d57f6e6f94939563cd8169992d01fa0a44fb97e01be8efc7",
+      "reason": "This frozen offline supervisor parses a bounded private child artifact from its fixed hash-admitted producer, which uses escaped ElementTree serialization. Normal product, worker, web and CI entry paths exclude this archive. This intentional historical stdlib parser does not reject DTDs or make untrusted XML safe."
+    },
+    {
+      "scanner": "semgrep",
+      "rule_id": "python.lang.security.audit.exec-detected",
+      "path": "benchmarks/probe_diagnostics/agh_v13/agent-aghfal17-native-v13-generic-validator.py",
+      "start_line": 46,
+      "end_line": 46,
+      "source_sha256": "f744577bfbd88c507c4a431bc45957ea40ec841023475c5c5d791c836cdad774",
+      "reason": "This historical generic validator reads its inherited captured runner descriptor once, verifies both admitted hash values, and compiles the same bytes. Its fixed benchmark supervisor supplies the captured runner and manifest; this is internal probe replay rather than evaluation of user input."
+    },
+    {
+      "scanner": "semgrep",
+      "rule_id": "python.lang.security.audit.exec-detected",
+      "path": "benchmarks/probe_diagnostics/agh_v13/agent-aghfal17-native-v13-runner.py",
+      "start_line": 645,
+      "end_line": 645,
+      "source_sha256": "a192c00e8565696df4a24a2d4729b8dd67840a227a60b03f572a24965ce17509",
+      "reason": "This historical runtime loader executes the same descriptor bytes after exact size and SHA256 admission. Its runtime bundle admission verifies required memfd seals, pinned RECORD-derived source entries and descriptor identity before import. Actual Linux mutable-descriptor and digest-drift negatives reject."
+    },
+    {
+      "scanner": "semgrep",
+      "rule_id": "python.lang.security.audit.exec-detected",
+      "path": "benchmarks/probe_diagnostics/agh_v13/agent-aghfal17-native-v13-runner.py",
+      "start_line": 1236,
+      "end_line": 1236,
+      "source_sha256": "a192c00e8565696df4a24a2d4729b8dd67840a227a60b03f572a24965ce17509",
+      "reason": "This frozen benchmark import hook hashes the immutable source bytes against its fixed EXPECTED_HASHES label before compiling those same bytes. It receives sources through the sealed capture path. Actual exact-byte execution and changed-source rejection were checked for every historical variant."
+    },
+    {
+      "scanner": "semgrep",
+      "rule_id": "python.lang.security.use-defused-xml",
+      "path": "benchmarks/probe_diagnostics/agh_v13/agent-aghfal17-native-v13-supervisor.py",
+      "start_line": 27,
+      "end_line": 27,
+      "source_sha256": "eb2f506c4cd083620b26b7ff22925d2622b790a8c251c177727848ffdd9272ca",
+      "reason": "This frozen offline supervisor parses a bounded private child artifact from its fixed hash-admitted producer, which uses escaped ElementTree serialization. Normal product, worker, web and CI entry paths exclude this archive. This intentional historical stdlib parser does not reject DTDs or make untrusted XML safe."
+    },
+    {
+      "scanner": "semgrep",
+      "rule_id": "python.lang.security.audit.exec-detected",
+      "path": "benchmarks/probe_diagnostics/agh_v14/agent-aghfal17-native-v14-generic-validator.py",
+      "start_line": 46,
+      "end_line": 46,
+      "source_sha256": "0670ed6bd8ca9ae0ce1a05d5ddff39b7faca59a61b109c4629edb84c66c4ce8e",
+      "reason": "This historical generic validator reads its inherited captured runner descriptor once, verifies both admitted hash values, and compiles the same bytes. Its fixed benchmark supervisor supplies the captured runner and manifest; this is internal probe replay rather than evaluation of user input."
+    },
+    {
+      "scanner": "semgrep",
+      "rule_id": "python.lang.security.audit.exec-detected",
+      "path": "benchmarks/probe_diagnostics/agh_v14/agent-aghfal17-native-v14-runner.py",
+      "start_line": 645,
+      "end_line": 645,
+      "source_sha256": "6e7a99b3f0cabe289defa3654282b68ee8e157e56163c5c87e6b2ddb49e61e2f",
+      "reason": "This historical runtime loader executes the same descriptor bytes after exact size and SHA256 admission. Its runtime bundle admission verifies required memfd seals, pinned RECORD-derived source entries and descriptor identity before import. Actual Linux mutable-descriptor and digest-drift negatives reject."
+    },
+    {
+      "scanner": "semgrep",
+      "rule_id": "python.lang.security.audit.exec-detected",
+      "path": "benchmarks/probe_diagnostics/agh_v14/agent-aghfal17-native-v14-runner.py",
+      "start_line": 1236,
+      "end_line": 1236,
+      "source_sha256": "6e7a99b3f0cabe289defa3654282b68ee8e157e56163c5c87e6b2ddb49e61e2f",
+      "reason": "This frozen benchmark import hook hashes the immutable source bytes against its fixed EXPECTED_HASHES label before compiling those same bytes. It receives sources through the sealed capture path. Actual exact-byte execution and changed-source rejection were checked for every historical variant."
+    },
+    {
+      "scanner": "semgrep",
+      "rule_id": "python.lang.security.use-defused-xml",
+      "path": "benchmarks/probe_diagnostics/agh_v14/agent-aghfal17-native-v14-supervisor.py",
+      "start_line": 27,
+      "end_line": 27,
+      "source_sha256": "d923a1d8d0d55d5967e5221298e4b3874764cf8722baf56291ec365858369b88",
+      "reason": "This frozen offline supervisor parses a bounded private child artifact from its fixed hash-admitted producer, which uses escaped ElementTree serialization. Normal product, worker, web and CI entry paths exclude this archive. This intentional historical stdlib parser does not reject DTDs or make untrusted XML safe."
+    },
+    {
+      "scanner": "semgrep",
+      "rule_id": "python.lang.security.audit.exec-detected",
+      "path": "benchmarks/probe_diagnostics/agh_v15/agent-aghfal17-native-v15-generic-validator.py",
+      "start_line": 46,
+      "end_line": 46,
+      "source_sha256": "b76c60f2a5474852895e01804a2c8249d185529a1d7b766ffcc7695659878af8",
+      "reason": "This historical generic validator reads its inherited captured runner descriptor once, verifies both admitted hash values, and compiles the same bytes. Its fixed benchmark supervisor supplies the captured runner and manifest; this is internal probe replay rather than evaluation of user input."
+    },
+    {
+      "scanner": "semgrep",
+      "rule_id": "python.lang.security.audit.exec-detected",
+      "path": "benchmarks/probe_diagnostics/agh_v15/agent-aghfal17-native-v15-runner.py",
+      "start_line": 645,
+      "end_line": 645,
+      "source_sha256": "41d8a1af8a32db81093e89890acbe3698f2d9f66c662185f55d5784b7d0fabc2",
+      "reason": "This historical runtime loader executes the same descriptor bytes after exact size and SHA256 admission. Its runtime bundle admission verifies required memfd seals, pinned RECORD-derived source entries and descriptor identity before import. Actual Linux mutable-descriptor and digest-drift negatives reject."
+    },
+    {
+      "scanner": "semgrep",
+      "rule_id": "python.lang.security.audit.exec-detected",
+      "path": "benchmarks/probe_diagnostics/agh_v15/agent-aghfal17-native-v15-runner.py",
+      "start_line": 1236,
+      "end_line": 1236,
+      "source_sha256": "41d8a1af8a32db81093e89890acbe3698f2d9f66c662185f55d5784b7d0fabc2",
+      "reason": "This frozen benchmark import hook hashes the immutable source bytes against its fixed EXPECTED_HASHES label before compiling those same bytes. It receives sources through the sealed capture path. Actual exact-byte execution and changed-source rejection were checked for every historical variant."
+    },
+    {
+      "scanner": "semgrep",
+      "rule_id": "python.lang.security.use-defused-xml",
+      "path": "benchmarks/probe_diagnostics/agh_v15/agent-aghfal17-native-v15-supervisor.py",
+      "start_line": 27,
+      "end_line": 27,
+      "source_sha256": "76a57346e40e9ffbf499c4cdd03be980452c62d260404ba62f03d2c7a3a4757d",
+      "reason": "This frozen offline supervisor parses a bounded private child artifact from its fixed hash-admitted producer, which uses escaped ElementTree serialization. Normal product, worker, web and CI entry paths exclude this archive. This intentional historical stdlib parser does not reject DTDs or make untrusted XML safe."
+    },
+    {
+      "scanner": "semgrep",
+      "rule_id": "python.lang.security.audit.exec-detected",
+      "path": "benchmarks/probe_diagnostics/agh_v16/agent-aghfal17-native-v16-generic-validator.py",
+      "start_line": 46,
+      "end_line": 46,
+      "source_sha256": "e063003708c642219041e18fee5736bf213ebbdf8c231e018ab1ef61cbf23716",
+      "reason": "This historical generic validator reads its inherited captured runner descriptor once, verifies both admitted hash values, and compiles the same bytes. Its fixed benchmark supervisor supplies the captured runner and manifest; this is internal probe replay rather than evaluation of user input."
+    },
+    {
+      "scanner": "semgrep",
+      "rule_id": "python.lang.security.audit.exec-detected",
+      "path": "benchmarks/probe_diagnostics/agh_v16/agent-aghfal17-native-v16-runner.py",
+      "start_line": 645,
+      "end_line": 645,
+      "source_sha256": "d02b6d62d02a882167faa77627af4ed39a63b3441845e7874e01ea1bdc3c1aeb",
+      "reason": "This historical runtime loader executes the same descriptor bytes after exact size and SHA256 admission. Its runtime bundle admission verifies required memfd seals, pinned RECORD-derived source entries and descriptor identity before import. Actual Linux mutable-descriptor and digest-drift negatives reject."
+    },
+    {
+      "scanner": "semgrep",
+      "rule_id": "python.lang.security.audit.exec-detected",
+      "path": "benchmarks/probe_diagnostics/agh_v16/agent-aghfal17-native-v16-runner.py",
+      "start_line": 1236,
+      "end_line": 1236,
+      "source_sha256": "d02b6d62d02a882167faa77627af4ed39a63b3441845e7874e01ea1bdc3c1aeb",
+      "reason": "This frozen benchmark import hook hashes the immutable source bytes against its fixed EXPECTED_HASHES label before compiling those same bytes. It receives sources through the sealed capture path. Actual exact-byte execution and changed-source rejection were checked for every historical variant."
+    },
+    {
+      "scanner": "semgrep",
+      "rule_id": "python.lang.security.use-defused-xml",
+      "path": "benchmarks/probe_diagnostics/agh_v16/agent-aghfal17-native-v16-supervisor.py",
+      "start_line": 27,
+      "end_line": 27,
+      "source_sha256": "8fd5b2d5456eb03d67b72baaf006b4e73e464b87447bb9ebff577d6e0f0a8f2c",
+      "reason": "This frozen offline supervisor parses a bounded private child artifact from its fixed hash-admitted producer, which uses escaped ElementTree serialization. Normal product, worker, web and CI entry paths exclude this archive. This intentional historical stdlib parser does not reject DTDs or make untrusted XML safe."
+    },
+    {
+      "scanner": "semgrep",
+      "rule_id": "python.lang.security.audit.exec-detected",
+      "path": "benchmarks/probe_diagnostics/agh_v17/agent-aghfal17-native-v17-generic-validator.py",
+      "start_line": 46,
+      "end_line": 46,
+      "source_sha256": "5ffbacf3ea5bca79eb512b281d4a50d191784a4e6060dc2c2c440bb6e479c4c9",
+      "reason": "This historical generic validator reads its inherited captured runner descriptor once, verifies both admitted hash values, and compiles the same bytes. Its fixed benchmark supervisor supplies the captured runner and manifest; this is internal probe replay rather than evaluation of user input."
+    },
+    {
+      "scanner": "semgrep",
+      "rule_id": "python.lang.security.audit.exec-detected",
+      "path": "benchmarks/probe_diagnostics/agh_v17/agent-aghfal17-native-v17-runner.py",
+      "start_line": 645,
+      "end_line": 645,
+      "source_sha256": "8e773abf562e834caf7fad76fc95ec112d449fdc183aef4f998ed35b59c987b9",
+      "reason": "This historical runtime loader executes the same descriptor bytes after exact size and SHA256 admission. Its runtime bundle admission verifies required memfd seals, pinned RECORD-derived source entries and descriptor identity before import. Actual Linux mutable-descriptor and digest-drift negatives reject."
+    },
+    {
+      "scanner": "semgrep",
+      "rule_id": "python.lang.security.audit.exec-detected",
+      "path": "benchmarks/probe_diagnostics/agh_v17/agent-aghfal17-native-v17-runner.py",
+      "start_line": 1236,
+      "end_line": 1236,
+      "source_sha256": "8e773abf562e834caf7fad76fc95ec112d449fdc183aef4f998ed35b59c987b9",
+      "reason": "This frozen benchmark import hook hashes the immutable source bytes against its fixed EXPECTED_HASHES label before compiling those same bytes. It receives sources through the sealed capture path. Actual exact-byte execution and changed-source rejection were checked for every historical variant."
+    },
+    {
+      "scanner": "semgrep",
+      "rule_id": "python.lang.security.use-defused-xml",
+      "path": "benchmarks/probe_diagnostics/agh_v17/agent-aghfal17-native-v17-supervisor.py",
+      "start_line": 27,
+      "end_line": 27,
+      "source_sha256": "fedd7f7a6c705f35f68c268b25e48818ffc05b0d71cb726f637eafd6933a0b2f",
+      "reason": "This frozen offline supervisor parses a bounded private child artifact from its fixed hash-admitted producer, which uses escaped ElementTree serialization. Normal product, worker, web and CI entry paths exclude this archive. This intentional historical stdlib parser does not reject DTDs or make untrusted XML safe."
+    },
+    {
+      "scanner": "semgrep",
+      "rule_id": "python.lang.security.audit.exec-detected",
+      "path": "benchmarks/probe_diagnostics/agh_v18/agent-aghfal17-native-v18-generic-validator.py",
+      "start_line": 46,
+      "end_line": 46,
+      "source_sha256": "a7e45885980368d56083e321749337dcaf3fca8ef1e2a2c984181df9c5d6a89c",
+      "reason": "This historical generic validator reads its inherited captured runner descriptor once, verifies both admitted hash values, and compiles the same bytes. Its fixed benchmark supervisor supplies the captured runner and manifest; this is internal probe replay rather than evaluation of user input."
+    },
+    {
+      "scanner": "semgrep",
+      "rule_id": "python.lang.security.audit.exec-detected",
+      "path": "benchmarks/probe_diagnostics/agh_v18/agent-aghfal17-native-v18-runner-5b9fc547.py",
+      "start_line": 646,
+      "end_line": 646,
+      "source_sha256": "4fccaaae750a26475214d888bd6a67c0efeec781309590886f8b42e3002bb752",
+      "reason": "This historical runtime loader executes the same descriptor bytes after exact size and SHA256 admission. Its runtime bundle admission verifies required memfd seals, pinned RECORD-derived source entries and descriptor identity before import. Actual Linux mutable-descriptor and digest-drift negatives reject."
+    },
+    {
+      "scanner": "semgrep",
+      "rule_id": "python.lang.security.audit.exec-detected",
+      "path": "benchmarks/probe_diagnostics/agh_v18/agent-aghfal17-native-v18-runner-5b9fc547.py",
+      "start_line": 1227,
+      "end_line": 1227,
+      "source_sha256": "4fccaaae750a26475214d888bd6a67c0efeec781309590886f8b42e3002bb752",
+      "reason": "This frozen benchmark import hook hashes the immutable source bytes against its fixed EXPECTED_HASHES label before compiling those same bytes. It receives sources through the sealed capture path. Actual exact-byte execution and changed-source rejection were checked for every historical variant."
+    },
+    {
+      "scanner": "semgrep",
+      "rule_id": "python.lang.security.audit.exec-detected",
+      "path": "benchmarks/probe_diagnostics/agh_v18/agent-aghfal17-native-v18-runner.py",
+      "start_line": 645,
+      "end_line": 645,
+      "source_sha256": "24844dc75753765def9b33abed683c2855f9f329ebf2e252e697b59bdab6070f",
+      "reason": "This historical runtime loader executes the same descriptor bytes after exact size and SHA256 admission. Its runtime bundle admission verifies required memfd seals, pinned RECORD-derived source entries and descriptor identity before import. Actual Linux mutable-descriptor and digest-drift negatives reject."
+    },
+    {
+      "scanner": "semgrep",
+      "rule_id": "python.lang.security.audit.exec-detected",
+      "path": "benchmarks/probe_diagnostics/agh_v18/agent-aghfal17-native-v18-runner.py",
+      "start_line": 1236,
+      "end_line": 1236,
+      "source_sha256": "24844dc75753765def9b33abed683c2855f9f329ebf2e252e697b59bdab6070f",
+      "reason": "This frozen benchmark import hook hashes the immutable source bytes against its fixed EXPECTED_HASHES label before compiling those same bytes. It receives sources through the sealed capture path. Actual exact-byte execution and changed-source rejection were checked for every historical variant."
+    },
+    {
+      "scanner": "semgrep",
+      "rule_id": "python.lang.security.use-defused-xml",
+      "path": "benchmarks/probe_diagnostics/agh_v18/agent-aghfal17-native-v18-supervisor-5b9fc547.py",
+      "start_line": 27,
+      "end_line": 27,
+      "source_sha256": "df6604025812858768b9e334729419afb99b096b0b6274d5bd9eace6a36d7481",
+      "reason": "This frozen offline supervisor parses a bounded private child artifact from its fixed hash-admitted producer, which uses escaped ElementTree serialization. Normal product, worker, web and CI entry paths exclude this archive. This intentional historical stdlib parser does not reject DTDs or make untrusted XML safe."
+    },
+    {
+      "scanner": "semgrep",
+      "rule_id": "python.lang.security.use-defused-xml",
+      "path": "benchmarks/probe_diagnostics/agh_v18/agent-aghfal17-native-v18-supervisor.py",
+      "start_line": 27,
+      "end_line": 27,
+      "source_sha256": "bbb423ed711df801fad2b061ef7f3c86eb08ec8cf9daac531ebd5163a5839cbc",
+      "reason": "This frozen offline supervisor parses a bounded private child artifact from its fixed hash-admitted producer, which uses escaped ElementTree serialization. Normal product, worker, web and CI entry paths exclude this archive. This intentional historical stdlib parser does not reject DTDs or make untrusted XML safe."
+    },
+    {
+      "scanner": "semgrep",
+      "rule_id": "python.lang.security.audit.exec-detected",
+      "path": "benchmarks/probe_diagnostics/agh_v9/agent-aghfal17-native-v9-generic-validator.py",
+      "start_line": 46,
+      "end_line": 46,
+      "source_sha256": "80a04b60460f536db7e7198a611b713e048df789974e11520190f7f8c64825e7",
+      "reason": "This historical generic validator reads its inherited captured runner descriptor once, verifies both admitted hash values, and compiles the same bytes. Its fixed benchmark supervisor supplies the captured runner and manifest; this is internal probe replay rather than evaluation of user input."
+    },
+    {
+      "scanner": "semgrep",
+      "rule_id": "python.lang.security.audit.exec-detected",
+      "path": "benchmarks/probe_diagnostics/agh_v9/agent-aghfal17-native-v9-runner.py",
+      "start_line": 643,
+      "end_line": 643,
+      "source_sha256": "60b06dcb827279542f049a43723a2abd8381c50273e354c48c83f81868bb5236",
+      "reason": "This historical runtime loader executes the same descriptor bytes after exact size and SHA256 admission. Its runtime bundle admission verifies required memfd seals, pinned RECORD-derived source entries and descriptor identity before import. Actual Linux mutable-descriptor and digest-drift negatives reject."
+    },
+    {
+      "scanner": "semgrep",
+      "rule_id": "python.lang.security.audit.exec-detected",
+      "path": "benchmarks/probe_diagnostics/agh_v9/agent-aghfal17-native-v9-runner.py",
+      "start_line": 1237,
+      "end_line": 1237,
+      "source_sha256": "60b06dcb827279542f049a43723a2abd8381c50273e354c48c83f81868bb5236",
+      "reason": "This frozen benchmark import hook hashes the immutable source bytes against its fixed EXPECTED_HASHES label before compiling those same bytes. It receives sources through the sealed capture path. Actual exact-byte execution and changed-source rejection were checked for every historical variant."
+    },
+    {
+      "scanner": "semgrep",
+      "rule_id": "python.lang.security.use-defused-xml",
+      "path": "benchmarks/probe_diagnostics/agh_v9/agent-aghfal17-native-v9-supervisor.py",
+      "start_line": 27,
+      "end_line": 27,
+      "source_sha256": "cee9f8853492cfdf7b67f79f04590facdc468ba6f9e4f0eb4cf2440ba7434f0b",
+      "reason": "This frozen offline supervisor parses a bounded private child artifact from its fixed hash-admitted producer, which uses escaped ElementTree serialization. Normal product, worker, web and CI entry paths exclude this archive. This intentional historical stdlib parser does not reject DTDs or make untrusted XML safe."
+    },
+    {
+      "scanner": "semgrep",
+      "rule_id": "python.lang.security.use-defused-xml",
+      "path": "benchmarks/probe_diagnostics/muni_v16/planora-muni-fspsx-frontier-v16-runner.py",
+      "start_line": 39,
+      "end_line": 39,
+      "source_sha256": "7ae1cba5487fbc3cba22487f7ed16d7b99c2eaa3c7cdf5487d91b00b3258cef7",
+      "reason": "This frozen benchmark import is used only for Element/SubElement construction, indentation and tostring serialization. Every alias use was checked; none parses XML or passes the module indirectly. The historical probe bytes remain unchanged."
+    },
+    {
+      "scanner": "semgrep",
+      "rule_id": "python.lang.security.audit.exec-detected",
+      "path": "benchmarks/probe_diagnostics/muni_v16/planora-muni-fspsx-frontier-v16-runner.py",
+      "start_line": 540,
+      "end_line": 540,
+      "source_sha256": "7ae1cba5487fbc3cba22487f7ed16d7b99c2eaa3c7cdf5487d91b00b3258cef7",
+      "reason": "This historical runtime loader executes the same descriptor bytes after exact size and SHA256 admission. Its runtime bundle admission verifies required memfd seals, pinned RECORD-derived source entries and descriptor identity before import. Actual Linux mutable-descriptor and digest-drift negatives reject."
+    },
+    {
+      "scanner": "semgrep",
+      "rule_id": "python.lang.security.audit.exec-detected",
+      "path": "benchmarks/probe_diagnostics/muni_v16/planora-muni-fspsx-frontier-v16-runner.py",
+      "start_line": 1125,
+      "end_line": 1125,
+      "source_sha256": "7ae1cba5487fbc3cba22487f7ed16d7b99c2eaa3c7cdf5487d91b00b3258cef7",
+      "reason": "This frozen benchmark import hook consumes immutable bytes installed by install_sealed_sources after sealed descriptor/hash validation. The runner first admits fixed capture labels and EXPECTED_HASHES; its captured supervisor supplies the source evidence. The hook is not an untrusted-source execution API."
+    },
+    {
+      "scanner": "semgrep",
+      "rule_id": "python.lang.security.use-defused-xml",
+      "path": "benchmarks/probe_diagnostics/muni_v16/planora-muni-fspsx-frontier-v16-supervisor.py",
+      "start_line": 27,
+      "end_line": 27,
+      "source_sha256": "576d108bbc63d03353cb562d68b06d1ca5d2fac3baaa54ab55fc3e46ac638891",
+      "reason": "This frozen offline supervisor parses a bounded private child artifact from its fixed hash-admitted producer, which uses escaped ElementTree serialization. Normal product, worker, web and CI entry paths exclude this archive. This intentional historical stdlib parser does not reject DTDs or make untrusted XML safe."
+    },
+    {
+      "scanner": "semgrep",
+      "rule_id": "python.lang.security.use-defused-xml",
+      "path": "benchmarks/probe_diagnostics/muni_v16/planora-muni-fspsx-frontier-v16-tests.py",
+      "start_line": 26,
+      "end_line": 26,
+      "source_sha256": "b9f4c2b613b693cf51f56af1bfc5c5e4bfac507ddbe13d35ab8c2fbcd685af23",
+      "reason": "This frozen benchmark import is used only for Element/SubElement construction, indentation and tostring serialization. Every alias use was checked; none parses XML or passes the module indirectly. The historical probe bytes remain unchanged."
+    },
+    {
+      "scanner": "semgrep",
+      "rule_id": "python.lang.security.use-defused-xml",
+      "path": "benchmarks/probe_diagnostics/muni_v17/planora-muni-fspsx-frontier-v17-runner.py",
+      "start_line": 39,
+      "end_line": 39,
+      "source_sha256": "5e10b3ad9e33d3f70212b3d44f2b691e5828997d7571588146edde4775830eb9",
+      "reason": "This frozen benchmark import is used only for Element/SubElement construction, indentation and tostring serialization. Every alias use was checked; none parses XML or passes the module indirectly. The historical probe bytes remain unchanged."
+    },
+    {
+      "scanner": "semgrep",
+      "rule_id": "python.lang.security.audit.exec-detected",
+      "path": "benchmarks/probe_diagnostics/muni_v17/planora-muni-fspsx-frontier-v17-runner.py",
+      "start_line": 540,
+      "end_line": 540,
+      "source_sha256": "5e10b3ad9e33d3f70212b3d44f2b691e5828997d7571588146edde4775830eb9",
+      "reason": "This historical runtime loader executes the same descriptor bytes after exact size and SHA256 admission. Its runtime bundle admission verifies required memfd seals, pinned RECORD-derived source entries and descriptor identity before import. Actual Linux mutable-descriptor and digest-drift negatives reject."
+    },
+    {
+      "scanner": "semgrep",
+      "rule_id": "python.lang.security.audit.exec-detected",
+      "path": "benchmarks/probe_diagnostics/muni_v17/planora-muni-fspsx-frontier-v17-runner.py",
+      "start_line": 1125,
+      "end_line": 1125,
+      "source_sha256": "5e10b3ad9e33d3f70212b3d44f2b691e5828997d7571588146edde4775830eb9",
+      "reason": "This frozen benchmark import hook consumes immutable bytes installed by install_sealed_sources after sealed descriptor/hash validation. The runner first admits fixed capture labels and EXPECTED_HASHES; its captured supervisor supplies the source evidence. The hook is not an untrusted-source execution API."
+    },
+    {
+      "scanner": "semgrep",
+      "rule_id": "python.lang.security.use-defused-xml",
+      "path": "benchmarks/probe_diagnostics/muni_v17/planora-muni-fspsx-frontier-v17-supervisor.py",
+      "start_line": 27,
+      "end_line": 27,
+      "source_sha256": "681e5fa4e16ce2210952c54c2f9a7be930fcb0808d4be7c33884473e0aa8fa9b",
+      "reason": "This frozen offline supervisor parses a bounded private child artifact from its fixed hash-admitted producer, which uses escaped ElementTree serialization. Normal product, worker, web and CI entry paths exclude this archive. This intentional historical stdlib parser does not reject DTDs or make untrusted XML safe."
+    },
+    {
+      "scanner": "semgrep",
+      "rule_id": "python.lang.security.use-defused-xml",
+      "path": "benchmarks/probe_diagnostics/muni_v17/planora-muni-fspsx-frontier-v17-tests.py",
+      "start_line": 27,
+      "end_line": 27,
+      "source_sha256": "dce9044b5562518390b846e5fbce99522d92f1603d4da02d1a093303021a2bd2",
+      "reason": "This frozen benchmark import is used only for Element/SubElement construction, indentation and tostring serialization. Every alias use was checked; none parses XML or passes the module indirectly. The historical probe bytes remain unchanged."
+    },
+    {
+      "scanner": "semgrep",
+      "rule_id": "python.lang.security.use-defused-xml",
+      "path": "benchmarks/probe_diagnostics/muni_v18/planora-muni-fspsx-frontier-v18-runner.py",
+      "start_line": 40,
+      "end_line": 40,
+      "source_sha256": "24e98703bc6821a57870f58271a1f62220358a7caace7d174550a86815093fb5",
+      "reason": "This frozen benchmark import is used only for Element/SubElement construction, indentation and tostring serialization. Every alias use was checked; none parses XML or passes the module indirectly. The historical probe bytes remain unchanged."
+    },
+    {
+      "scanner": "semgrep",
+      "rule_id": "python.lang.security.audit.exec-detected",
+      "path": "benchmarks/probe_diagnostics/muni_v18/planora-muni-fspsx-frontier-v18-runner.py",
+      "start_line": 567,
+      "end_line": 567,
+      "source_sha256": "24e98703bc6821a57870f58271a1f62220358a7caace7d174550a86815093fb5",
+      "reason": "This historical runtime loader executes the same descriptor bytes after exact size and SHA256 admission. Its runtime bundle admission verifies required memfd seals, pinned RECORD-derived source entries and descriptor identity before import. Actual Linux mutable-descriptor and digest-drift negatives reject."
+    },
+    {
+      "scanner": "semgrep",
+      "rule_id": "python.lang.security.audit.exec-detected",
+      "path": "benchmarks/probe_diagnostics/muni_v18/planora-muni-fspsx-frontier-v18-runner.py",
+      "start_line": 1186,
+      "end_line": 1186,
+      "source_sha256": "24e98703bc6821a57870f58271a1f62220358a7caace7d174550a86815093fb5",
+      "reason": "This frozen benchmark import hook consumes immutable bytes installed by install_sealed_sources after sealed descriptor/hash validation. The runner first admits fixed capture labels and EXPECTED_HASHES; its captured supervisor supplies the source evidence. The hook is not an untrusted-source execution API."
+    },
+    {
+      "scanner": "semgrep",
+      "rule_id": "python.lang.security.use-defused-xml",
+      "path": "benchmarks/probe_diagnostics/muni_v18/planora-muni-fspsx-frontier-v18-supervisor.py",
+      "start_line": 27,
+      "end_line": 27,
+      "source_sha256": "10efa114d59f3e8c9b43817acf1532873eae6d2a111146113aa1e85040812e0b",
+      "reason": "This frozen offline supervisor parses a bounded private child artifact from its fixed hash-admitted producer, which uses escaped ElementTree serialization. Normal product, worker, web and CI entry paths exclude this archive. This intentional historical stdlib parser does not reject DTDs or make untrusted XML safe."
+    },
+    {
+      "scanner": "semgrep",
+      "rule_id": "python.lang.security.use-defused-xml",
+      "path": "benchmarks/probe_diagnostics/muni_v18/planora-muni-fspsx-frontier-v18-tests.py",
+      "start_line": 29,
+      "end_line": 29,
+      "source_sha256": "4c9ad4c27ad0cb6a85085f4b68ff8333e3168673ff074552ba591887b915f558",
+      "reason": "This frozen benchmark import is used only for Element/SubElement construction, indentation and tostring serialization. Every alias use was checked; none parses XML or passes the module indirectly. The historical probe bytes remain unchanged."
+    },
+    {
+      "scanner": "semgrep",
+      "rule_id": "python.lang.security.use-defused-xml",
+      "path": "benchmarks/probe_diagnostics/muni_v19/planora-muni-fspsx-frontier-v19-runner.py",
+      "start_line": 40,
+      "end_line": 40,
+      "source_sha256": "9a6bad1d373bff19881b81215e035c4cdedda3948f52f64924f92b6b28cd143e",
+      "reason": "This frozen benchmark import is used only for Element/SubElement construction, indentation and tostring serialization. Every alias use was checked; none parses XML or passes the module indirectly. The historical probe bytes remain unchanged."
+    },
+    {
+      "scanner": "semgrep",
+      "rule_id": "python.lang.security.audit.exec-detected",
+      "path": "benchmarks/probe_diagnostics/muni_v19/planora-muni-fspsx-frontier-v19-runner.py",
+      "start_line": 633,
+      "end_line": 633,
+      "source_sha256": "9a6bad1d373bff19881b81215e035c4cdedda3948f52f64924f92b6b28cd143e",
+      "reason": "This historical runtime loader executes the same descriptor bytes after exact size and SHA256 admission. Its runtime bundle admission verifies required memfd seals, pinned RECORD-derived source entries and descriptor identity before import. Actual Linux mutable-descriptor and digest-drift negatives reject."
+    },
+    {
+      "scanner": "semgrep",
+      "rule_id": "python.lang.security.audit.exec-detected",
+      "path": "benchmarks/probe_diagnostics/muni_v19/planora-muni-fspsx-frontier-v19-runner.py",
+      "start_line": 1252,
+      "end_line": 1252,
+      "source_sha256": "9a6bad1d373bff19881b81215e035c4cdedda3948f52f64924f92b6b28cd143e",
+      "reason": "This frozen benchmark import hook consumes immutable bytes installed by install_sealed_sources after sealed descriptor/hash validation. The runner first admits fixed capture labels and EXPECTED_HASHES; its captured supervisor supplies the source evidence. The hook is not an untrusted-source execution API."
+    },
+    {
+      "scanner": "semgrep",
+      "rule_id": "python.lang.security.use-defused-xml",
+      "path": "benchmarks/probe_diagnostics/muni_v19/planora-muni-fspsx-frontier-v19-supervisor.py",
+      "start_line": 27,
+      "end_line": 27,
+      "source_sha256": "262ab0f56e3fb9b9a208167ff91c79f853152fb6e02569f1a99231b90347969d",
+      "reason": "This frozen offline supervisor parses a bounded private child artifact from its fixed hash-admitted producer, which uses escaped ElementTree serialization. Normal product, worker, web and CI entry paths exclude this archive. This intentional historical stdlib parser does not reject DTDs or make untrusted XML safe."
+    },
+    {
+      "scanner": "semgrep",
+      "rule_id": "python.lang.security.use-defused-xml",
+      "path": "benchmarks/probe_diagnostics/muni_v19/planora-muni-fspsx-frontier-v19-tests.py",
+      "start_line": 29,
+      "end_line": 29,
+      "source_sha256": "40a9ead91417650c10c255c49b161f356a23f63343c7ef4b09d79a291fcb9a43",
+      "reason": "This frozen benchmark import is used only for Element/SubElement construction, indentation and tostring serialization. Every alias use was checked; none parses XML or passes the module indirectly. The historical probe bytes remain unchanged."
+    },
+    {
+      "scanner": "semgrep",
+      "rule_id": "python.lang.security.use-defused-xml",
+      "path": "benchmarks/probe_diagnostics/muni_v20/planora-muni-fspsx-frontier-v20-runner.py",
+      "start_line": 40,
+      "end_line": 40,
+      "source_sha256": "88a83e978e831d47048034caf931269085253974e74cef15dc94a32d34fbb9eb",
+      "reason": "This frozen benchmark import is used only for Element/SubElement construction, indentation and tostring serialization. Every alias use was checked; none parses XML or passes the module indirectly. The historical probe bytes remain unchanged."
+    },
+    {
+      "scanner": "semgrep",
+      "rule_id": "python.lang.security.audit.exec-detected",
+      "path": "benchmarks/probe_diagnostics/muni_v20/planora-muni-fspsx-frontier-v20-runner.py",
+      "start_line": 919,
+      "end_line": 919,
+      "source_sha256": "88a83e978e831d47048034caf931269085253974e74cef15dc94a32d34fbb9eb",
+      "reason": "This historical runtime loader executes the same descriptor bytes after exact size and SHA256 admission. Its runtime bundle admission verifies required memfd seals, pinned RECORD-derived source entries and descriptor identity before import. Actual Linux mutable-descriptor and digest-drift negatives reject."
+    },
+    {
+      "scanner": "semgrep",
+      "rule_id": "python.lang.security.audit.exec-detected",
+      "path": "benchmarks/probe_diagnostics/muni_v20/planora-muni-fspsx-frontier-v20-runner.py",
+      "start_line": 1538,
+      "end_line": 1538,
+      "source_sha256": "88a83e978e831d47048034caf931269085253974e74cef15dc94a32d34fbb9eb",
+      "reason": "This frozen benchmark import hook consumes immutable bytes installed by install_sealed_sources after sealed descriptor/hash validation. The runner first admits fixed capture labels and EXPECTED_HASHES; its captured supervisor supplies the source evidence. The hook is not an untrusted-source execution API."
+    },
+    {
+      "scanner": "semgrep",
+      "rule_id": "python.lang.security.use-defused-xml",
+      "path": "benchmarks/probe_diagnostics/muni_v20/planora-muni-fspsx-frontier-v20-supervisor.py",
+      "start_line": 27,
+      "end_line": 27,
+      "source_sha256": "ce399b471f37b44f28d97dc30b50b63f4651a4be58327c18a96b855a5b2aa3a7",
+      "reason": "This frozen offline supervisor parses a bounded private child artifact from its fixed hash-admitted producer, which uses escaped ElementTree serialization. Normal product, worker, web and CI entry paths exclude this archive. This intentional historical stdlib parser does not reject DTDs or make untrusted XML safe."
+    },
+    {
+      "scanner": "semgrep",
+      "rule_id": "python.lang.security.use-defused-xml",
+      "path": "benchmarks/probe_diagnostics/muni_v20/planora-muni-fspsx-frontier-v20-tests.py",
+      "start_line": 29,
+      "end_line": 29,
+      "source_sha256": "974f62b283f1c50b0ae221a47d5411f11a4059cd53c1a496dc4eb45f2dfd81d1",
+      "reason": "This frozen benchmark import is used only for Element/SubElement construction, indentation and tostring serialization. Every alias use was checked; none parses XML or passes the module indirectly. The historical probe bytes remain unchanged."
+    },
+    {
+      "scanner": "semgrep",
+      "rule_id": "python.lang.security.use-defused-xml",
+      "path": "benchmarks/probe_diagnostics/muni_v21/planora-muni-fspsx-frontier-v21-runner.py",
+      "start_line": 40,
+      "end_line": 40,
+      "source_sha256": "bf4938fcf50ec558143a0e56e97877bf2edde593ecbb3b71484219c8527b4c03",
+      "reason": "This frozen benchmark import is used only for Element/SubElement construction, indentation and tostring serialization. Every alias use was checked; none parses XML or passes the module indirectly. The historical probe bytes remain unchanged."
+    },
+    {
+      "scanner": "semgrep",
+      "rule_id": "python.lang.security.audit.exec-detected",
+      "path": "benchmarks/probe_diagnostics/muni_v21/planora-muni-fspsx-frontier-v21-runner.py",
+      "start_line": 919,
+      "end_line": 919,
+      "source_sha256": "bf4938fcf50ec558143a0e56e97877bf2edde593ecbb3b71484219c8527b4c03",
+      "reason": "This historical runtime loader executes the same descriptor bytes after exact size and SHA256 admission. Its runtime bundle admission verifies required memfd seals, pinned RECORD-derived source entries and descriptor identity before import. Actual Linux mutable-descriptor and digest-drift negatives reject."
+    },
+    {
+      "scanner": "semgrep",
+      "rule_id": "python.lang.security.audit.exec-detected",
+      "path": "benchmarks/probe_diagnostics/muni_v21/planora-muni-fspsx-frontier-v21-runner.py",
+      "start_line": 1538,
+      "end_line": 1538,
+      "source_sha256": "bf4938fcf50ec558143a0e56e97877bf2edde593ecbb3b71484219c8527b4c03",
+      "reason": "This frozen benchmark import hook consumes immutable bytes installed by install_sealed_sources after sealed descriptor/hash validation. The runner first admits fixed capture labels and EXPECTED_HASHES; its captured supervisor supplies the source evidence. The hook is not an untrusted-source execution API."
+    },
+    {
+      "scanner": "semgrep",
+      "rule_id": "python.lang.security.use-defused-xml",
+      "path": "benchmarks/probe_diagnostics/muni_v21/planora-muni-fspsx-frontier-v21-supervisor.py",
+      "start_line": 27,
+      "end_line": 27,
+      "source_sha256": "31edc9d95c0b7cf4d552cb1bc98261f4de9920d4773ff1b62fffd19b72f30e36",
+      "reason": "This frozen offline supervisor parses a bounded private child artifact from its fixed hash-admitted producer, which uses escaped ElementTree serialization. Normal product, worker, web and CI entry paths exclude this archive. This intentional historical stdlib parser does not reject DTDs or make untrusted XML safe."
+    },
+    {
+      "scanner": "semgrep",
+      "rule_id": "python.lang.security.use-defused-xml",
+      "path": "benchmarks/probe_diagnostics/muni_v21/planora-muni-fspsx-frontier-v21-tests.py",
+      "start_line": 29,
+      "end_line": 29,
+      "source_sha256": "efee6c6b58d17261a6961a5f28a864ef9b76ca3742ed1b3e30d69243c89c9777",
+      "reason": "This frozen benchmark import is used only for Element/SubElement construction, indentation and tostring serialization. Every alias use was checked; none parses XML or passes the module indirectly. The historical probe bytes remain unchanged."
+    },
+    {
+      "scanner": "semgrep",
+      "rule_id": "python.lang.security.use-defused-xml",
+      "path": "benchmarks/probe_diagnostics/muni_v22/planora-muni-fspsx-frontier-v22-runner.py",
+      "start_line": 40,
+      "end_line": 40,
+      "source_sha256": "84c60e2e257d6fbe527d1d68f5957fdf19da34224f58efdca497f5b2e95d8f09",
+      "reason": "This frozen benchmark import is used only for Element/SubElement construction, indentation and tostring serialization. Every alias use was checked; none parses XML or passes the module indirectly. The historical probe bytes remain unchanged."
+    },
+    {
+      "scanner": "semgrep",
+      "rule_id": "python.lang.security.audit.exec-detected",
+      "path": "benchmarks/probe_diagnostics/muni_v22/planora-muni-fspsx-frontier-v22-runner.py",
+      "start_line": 919,
+      "end_line": 919,
+      "source_sha256": "84c60e2e257d6fbe527d1d68f5957fdf19da34224f58efdca497f5b2e95d8f09",
+      "reason": "This historical runtime loader executes the same descriptor bytes after exact size and SHA256 admission. Its runtime bundle admission verifies required memfd seals, pinned RECORD-derived source entries and descriptor identity before import. Actual Linux mutable-descriptor and digest-drift negatives reject."
+    },
+    {
+      "scanner": "semgrep",
+      "rule_id": "python.lang.security.audit.exec-detected",
+      "path": "benchmarks/probe_diagnostics/muni_v22/planora-muni-fspsx-frontier-v22-runner.py",
+      "start_line": 1542,
+      "end_line": 1542,
+      "source_sha256": "84c60e2e257d6fbe527d1d68f5957fdf19da34224f58efdca497f5b2e95d8f09",
+      "reason": "This frozen benchmark import hook consumes immutable bytes installed by install_sealed_sources after sealed descriptor/hash validation. The runner first admits fixed capture labels and EXPECTED_HASHES; its captured supervisor supplies the source evidence. The hook is not an untrusted-source execution API."
+    },
+    {
+      "scanner": "semgrep",
+      "rule_id": "python.lang.security.use-defused-xml",
+      "path": "benchmarks/probe_diagnostics/muni_v22/planora-muni-fspsx-frontier-v22-supervisor.py",
+      "start_line": 27,
+      "end_line": 27,
+      "source_sha256": "45dcb41fa5d5bfbd24577646836c6c18b4954439845f2b021e62538bf460f3f8",
+      "reason": "This frozen offline supervisor parses a bounded private child artifact from its fixed hash-admitted producer, which uses escaped ElementTree serialization. Normal product, worker, web and CI entry paths exclude this archive. This intentional historical stdlib parser does not reject DTDs or make untrusted XML safe."
+    },
+    {
+      "scanner": "semgrep",
+      "rule_id": "python.lang.security.use-defused-xml",
+      "path": "benchmarks/probe_diagnostics/muni_v22/planora-muni-fspsx-frontier-v22-tests.py",
+      "start_line": 30,
+      "end_line": 30,
+      "source_sha256": "2136a052a9ddd78dc3e31fd8c8d1294617d2a05b6d1cbd1adedb6465e97138e7",
+      "reason": "This frozen benchmark import is used only for Element/SubElement construction, indentation and tostring serialization. Every alias use was checked; none parses XML or passes the module indirectly. The historical probe bytes remain unchanged."
+    },
+    {
+      "scanner": "semgrep",
+      "rule_id": "python.lang.security.use-defused-xml",
+      "path": "benchmarks/probe_diagnostics/muni_v23/planora-muni-fspsx-frontier-v23-runner.py",
+      "start_line": 40,
+      "end_line": 40,
+      "source_sha256": "301c42a52d551113385d6532bf17aa5b6a42fe34ca61d839e65c3eb3f12ba942",
+      "reason": "This frozen benchmark import is used only for Element/SubElement construction, indentation and tostring serialization. Every alias use was checked; none parses XML or passes the module indirectly. The historical probe bytes remain unchanged."
+    },
+    {
+      "scanner": "semgrep",
+      "rule_id": "python.lang.security.audit.exec-detected",
+      "path": "benchmarks/probe_diagnostics/muni_v23/planora-muni-fspsx-frontier-v23-runner.py",
+      "start_line": 919,
+      "end_line": 919,
+      "source_sha256": "301c42a52d551113385d6532bf17aa5b6a42fe34ca61d839e65c3eb3f12ba942",
+      "reason": "This historical runtime loader executes the same descriptor bytes after exact size and SHA256 admission. Its runtime bundle admission verifies required memfd seals, pinned RECORD-derived source entries and descriptor identity before import. Actual Linux mutable-descriptor and digest-drift negatives reject."
+    },
+    {
+      "scanner": "semgrep",
+      "rule_id": "python.lang.security.audit.exec-detected",
+      "path": "benchmarks/probe_diagnostics/muni_v23/planora-muni-fspsx-frontier-v23-runner.py",
+      "start_line": 1542,
+      "end_line": 1542,
+      "source_sha256": "301c42a52d551113385d6532bf17aa5b6a42fe34ca61d839e65c3eb3f12ba942",
+      "reason": "This frozen benchmark import hook consumes immutable bytes installed by install_sealed_sources after sealed descriptor/hash validation. The runner first admits fixed capture labels and EXPECTED_HASHES; its captured supervisor supplies the source evidence. The hook is not an untrusted-source execution API."
+    },
+    {
+      "scanner": "semgrep",
+      "rule_id": "python.lang.security.use-defused-xml",
+      "path": "benchmarks/probe_diagnostics/muni_v23/planora-muni-fspsx-frontier-v23-supervisor.py",
+      "start_line": 27,
+      "end_line": 27,
+      "source_sha256": "cb749ee7f4a98a0924dcec2a7c0c2eacd274b7111e702ff9cfee9cdfd29ed9e3",
+      "reason": "This frozen offline supervisor parses a bounded private child artifact from its fixed hash-admitted producer, which uses escaped ElementTree serialization. Normal product, worker, web and CI entry paths exclude this archive. This intentional historical stdlib parser does not reject DTDs or make untrusted XML safe."
+    },
+    {
+      "scanner": "semgrep",
+      "rule_id": "python.lang.security.use-defused-xml",
+      "path": "benchmarks/probe_diagnostics/muni_v23/planora-muni-fspsx-frontier-v23-tests.py",
+      "start_line": 30,
+      "end_line": 30,
+      "source_sha256": "6807f78bd0b5e98fd3926611383e2dbfe5fe15fe0868a55a63497c4ed9c2edaf",
+      "reason": "This frozen benchmark import is used only for Element/SubElement construction, indentation and tostring serialization. Every alias use was checked; none parses XML or passes the module indirectly. The historical probe bytes remain unchanged."
+    },
+    {
+      "scanner": "semgrep",
+      "rule_id": "python.lang.security.use-defused-xml",
+      "path": "benchmarks/probe_diagnostics/muni_v24/planora-muni-fspsx-frontier-v24-runner.py",
+      "start_line": 40,
+      "end_line": 40,
+      "source_sha256": "10f3f9028c1915d91bfa48536317aebd737c24e40a5945b4be8991e45adb2014",
+      "reason": "This frozen benchmark import is used only for Element/SubElement construction, indentation and tostring serialization. Every alias use was checked; none parses XML or passes the module indirectly. The historical probe bytes remain unchanged."
+    },
+    {
+      "scanner": "semgrep",
+      "rule_id": "python.lang.security.audit.exec-detected",
+      "path": "benchmarks/probe_diagnostics/muni_v24/planora-muni-fspsx-frontier-v24-runner.py",
+      "start_line": 919,
+      "end_line": 919,
+      "source_sha256": "10f3f9028c1915d91bfa48536317aebd737c24e40a5945b4be8991e45adb2014",
+      "reason": "This historical runtime loader executes the same descriptor bytes after exact size and SHA256 admission. Its runtime bundle admission verifies required memfd seals, pinned RECORD-derived source entries and descriptor identity before import. Actual Linux mutable-descriptor and digest-drift negatives reject."
+    },
+    {
+      "scanner": "semgrep",
+      "rule_id": "python.lang.security.audit.exec-detected",
+      "path": "benchmarks/probe_diagnostics/muni_v24/planora-muni-fspsx-frontier-v24-runner.py",
+      "start_line": 1542,
+      "end_line": 1542,
+      "source_sha256": "10f3f9028c1915d91bfa48536317aebd737c24e40a5945b4be8991e45adb2014",
+      "reason": "This frozen benchmark import hook consumes immutable bytes installed by install_sealed_sources after sealed descriptor/hash validation. The runner first admits fixed capture labels and EXPECTED_HASHES; its captured supervisor supplies the source evidence. The hook is not an untrusted-source execution API."
+    },
+    {
+      "scanner": "semgrep",
+      "rule_id": "python.lang.security.use-defused-xml",
+      "path": "benchmarks/probe_diagnostics/muni_v24/planora-muni-fspsx-frontier-v24-supervisor.py",
+      "start_line": 27,
+      "end_line": 27,
+      "source_sha256": "a55fe29d48f451257933b8228e76d52dfe81cf85ad45b27f9c3b839dca0ab7c4",
+      "reason": "This frozen offline supervisor parses a bounded private child artifact from its fixed hash-admitted producer, which uses escaped ElementTree serialization. Normal product, worker, web and CI entry paths exclude this archive. This intentional historical stdlib parser does not reject DTDs or make untrusted XML safe."
+    },
+    {
+      "scanner": "semgrep",
+      "rule_id": "python.lang.security.use-defused-xml",
+      "path": "benchmarks/probe_diagnostics/muni_v24/planora-muni-fspsx-frontier-v24-tests.py",
+      "start_line": 30,
+      "end_line": 30,
+      "source_sha256": "19b8814ec4a9f6b1e3d4f59d3dc8636ff17a0024dc3e6b0b44df78c132c0243c",
+      "reason": "This frozen benchmark import is used only for Element/SubElement construction, indentation and tostring serialization. Every alias use was checked; none parses XML or passes the module indirectly. The historical probe bytes remain unchanged."
+    },
+    {
+      "scanner": "semgrep",
+      "rule_id": "python.lang.security.use-defused-xml",
+      "path": "benchmarks/probe_diagnostics/muni_v25/planora-muni-fspsx-frontier-v25-runner.py",
+      "start_line": 40,
+      "end_line": 40,
+      "source_sha256": "dcb6c49e990d0a09038872195677c14105ebe442bb5727ec4ecad06a6de3844f",
+      "reason": "This frozen benchmark import is used only for Element/SubElement construction, indentation and tostring serialization. Every alias use was checked; none parses XML or passes the module indirectly. The historical probe bytes remain unchanged."
+    },
+    {
+      "scanner": "semgrep",
+      "rule_id": "python.lang.security.audit.exec-detected",
+      "path": "benchmarks/probe_diagnostics/muni_v25/planora-muni-fspsx-frontier-v25-runner.py",
+      "start_line": 919,
+      "end_line": 919,
+      "source_sha256": "dcb6c49e990d0a09038872195677c14105ebe442bb5727ec4ecad06a6de3844f",
+      "reason": "This historical runtime loader executes the same descriptor bytes after exact size and SHA256 admission. Its runtime bundle admission verifies required memfd seals, pinned RECORD-derived source entries and descriptor identity before import. Actual Linux mutable-descriptor and digest-drift negatives reject."
+    },
+    {
+      "scanner": "semgrep",
+      "rule_id": "python.lang.security.audit.exec-detected",
+      "path": "benchmarks/probe_diagnostics/muni_v25/planora-muni-fspsx-frontier-v25-runner.py",
+      "start_line": 1542,
+      "end_line": 1542,
+      "source_sha256": "dcb6c49e990d0a09038872195677c14105ebe442bb5727ec4ecad06a6de3844f",
+      "reason": "This frozen benchmark import hook consumes immutable bytes installed by install_sealed_sources after sealed descriptor/hash validation. The runner first admits fixed capture labels and EXPECTED_HASHES; its captured supervisor supplies the source evidence. The hook is not an untrusted-source execution API."
+    },
+    {
+      "scanner": "semgrep",
+      "rule_id": "python.lang.security.use-defused-xml",
+      "path": "benchmarks/probe_diagnostics/muni_v25/planora-muni-fspsx-frontier-v25-supervisor.py",
+      "start_line": 27,
+      "end_line": 27,
+      "source_sha256": "0d8e0ef04598f247724482af1dc367f0fd805e858f3bafd5193554c17367584c",
+      "reason": "This frozen offline supervisor parses a bounded private child artifact from its fixed hash-admitted producer, which uses escaped ElementTree serialization. Normal product, worker, web and CI entry paths exclude this archive. This intentional historical stdlib parser does not reject DTDs or make untrusted XML safe."
+    },
+    {
+      "scanner": "semgrep",
+      "rule_id": "python.lang.security.use-defused-xml",
+      "path": "benchmarks/probe_diagnostics/muni_v25/planora-muni-fspsx-frontier-v25-tests.py",
+      "start_line": 30,
+      "end_line": 30,
+      "source_sha256": "d54f57b918776ee17ac51483612afbe1c75a03ccf5cf0db3481ae77bf59310ec",
+      "reason": "This frozen benchmark import is used only for Element/SubElement construction, indentation and tostring serialization. Every alias use was checked; none parses XML or passes the module indirectly. The historical probe bytes remain unchanged."
+    },
+    {
+      "scanner": "semgrep",
+      "rule_id": "python.lang.security.use-defused-xml",
+      "path": "benchmarks/probe_diagnostics/muni_v26/planora-muni-fspsx-frontier-v26-runner.py",
+      "start_line": 40,
+      "end_line": 40,
+      "source_sha256": "553c3c71c5bfbdce9a309d24b0f82055f18bc3d852ff38c50e57e60dbc141c25",
+      "reason": "This frozen benchmark import is used only for Element/SubElement construction, indentation and tostring serialization. Every alias use was checked; none parses XML or passes the module indirectly. The historical probe bytes remain unchanged."
+    },
+    {
+      "scanner": "semgrep",
+      "rule_id": "python.lang.security.audit.exec-detected",
+      "path": "benchmarks/probe_diagnostics/muni_v26/planora-muni-fspsx-frontier-v26-runner.py",
+      "start_line": 919,
+      "end_line": 919,
+      "source_sha256": "553c3c71c5bfbdce9a309d24b0f82055f18bc3d852ff38c50e57e60dbc141c25",
+      "reason": "This historical runtime loader executes the same descriptor bytes after exact size and SHA256 admission. Its runtime bundle admission verifies required memfd seals, pinned RECORD-derived source entries and descriptor identity before import. Actual Linux mutable-descriptor and digest-drift negatives reject."
+    },
+    {
+      "scanner": "semgrep",
+      "rule_id": "python.lang.security.audit.exec-detected",
+      "path": "benchmarks/probe_diagnostics/muni_v26/planora-muni-fspsx-frontier-v26-runner.py",
+      "start_line": 1542,
+      "end_line": 1542,
+      "source_sha256": "553c3c71c5bfbdce9a309d24b0f82055f18bc3d852ff38c50e57e60dbc141c25",
+      "reason": "This frozen benchmark import hook consumes immutable bytes installed by install_sealed_sources after sealed descriptor/hash validation. The runner first admits fixed capture labels and EXPECTED_HASHES; its captured supervisor supplies the source evidence. The hook is not an untrusted-source execution API."
+    },
+    {
+      "scanner": "semgrep",
+      "rule_id": "python.lang.security.use-defused-xml",
+      "path": "benchmarks/probe_diagnostics/muni_v26/planora-muni-fspsx-frontier-v26-supervisor.py",
+      "start_line": 27,
+      "end_line": 27,
+      "source_sha256": "1e34daf2486342bed5d1bceaf39495cd3eff499a8929c177ae5dacd41d84b790",
+      "reason": "This frozen offline supervisor parses a bounded private child artifact from its fixed hash-admitted producer, which uses escaped ElementTree serialization. Normal product, worker, web and CI entry paths exclude this archive. This intentional historical stdlib parser does not reject DTDs or make untrusted XML safe."
+    },
+    {
+      "scanner": "semgrep",
+      "rule_id": "python.lang.security.use-defused-xml",
+      "path": "benchmarks/probe_diagnostics/muni_v26/planora-muni-fspsx-frontier-v26-tests.py",
+      "start_line": 31,
+      "end_line": 31,
+      "source_sha256": "33888b6ecaa74c20bb59ba3416eb96edb011feb84bcb0e55283b8bf4bcc24341",
+      "reason": "This frozen benchmark import is used only for Element/SubElement construction, indentation and tostring serialization. Every alias use was checked; none parses XML or passes the module indirectly. The historical probe bytes remain unchanged."
+    },
+    {
+      "scanner": "semgrep",
+      "rule_id": "python.lang.security.audit.exec-detected",
+      "path": "benchmarks/probe_diagnostics/muni_v26/planora-muni-fspsx-frontier-v26-tests.py",
+      "start_line": 257,
+      "end_line": 257,
+      "source_sha256": "33888b6ecaa74c20bb59ba3416eb96edb011feb84bcb0e55283b8bf4bcc24341",
+      "reason": "This historical test loads a fixed sibling supervisor source and compiles only an explicit whitelist of function/class definitions and future imports for Windows-compatible guard fixtures. Call sites supply the repository fixture path; no external payload, user expression or live service runs here."
+    },
+    {
+      "scanner": "semgrep",
+      "rule_id": "python.lang.security.use-defused-xml",
+      "path": "benchmarks/probe_diagnostics/muni_v27/planora-muni-fspsx-frontier-v27-runner.py",
+      "start_line": 40,
+      "end_line": 40,
+      "source_sha256": "5746f8f4932fd60b31e30be6bc01a186124c54ddc3b8831feef38549523f5e50",
+      "reason": "This frozen benchmark import is used only for Element/SubElement construction, indentation and tostring serialization. Every alias use was checked; none parses XML or passes the module indirectly. The historical probe bytes remain unchanged."
+    },
+    {
+      "scanner": "semgrep",
+      "rule_id": "python.lang.security.audit.exec-detected",
+      "path": "benchmarks/probe_diagnostics/muni_v27/planora-muni-fspsx-frontier-v27-runner.py",
+      "start_line": 919,
+      "end_line": 919,
+      "source_sha256": "5746f8f4932fd60b31e30be6bc01a186124c54ddc3b8831feef38549523f5e50",
+      "reason": "This historical runtime loader executes the same descriptor bytes after exact size and SHA256 admission. Its runtime bundle admission verifies required memfd seals, pinned RECORD-derived source entries and descriptor identity before import. Actual Linux mutable-descriptor and digest-drift negatives reject."
+    },
+    {
+      "scanner": "semgrep",
+      "rule_id": "python.lang.security.audit.exec-detected",
+      "path": "benchmarks/probe_diagnostics/muni_v27/planora-muni-fspsx-frontier-v27-runner.py",
+      "start_line": 1542,
+      "end_line": 1542,
+      "source_sha256": "5746f8f4932fd60b31e30be6bc01a186124c54ddc3b8831feef38549523f5e50",
+      "reason": "This frozen benchmark import hook consumes immutable bytes installed by install_sealed_sources after sealed descriptor/hash validation. The runner first admits fixed capture labels and EXPECTED_HASHES; its captured supervisor supplies the source evidence. The hook is not an untrusted-source execution API."
+    },
+    {
+      "scanner": "semgrep",
+      "rule_id": "python.lang.security.use-defused-xml",
+      "path": "benchmarks/probe_diagnostics/muni_v27/planora-muni-fspsx-frontier-v27-supervisor.py",
+      "start_line": 27,
+      "end_line": 27,
+      "source_sha256": "2a19f0bf27c73db4c8e8defa9d2c2d2ba86b3afc23c8f85213b5b8351133a653",
+      "reason": "This frozen offline supervisor parses a bounded private child artifact from its fixed hash-admitted producer, which uses escaped ElementTree serialization. Normal product, worker, web and CI entry paths exclude this archive. This intentional historical stdlib parser does not reject DTDs or make untrusted XML safe."
+    },
+    {
+      "scanner": "semgrep",
+      "rule_id": "python.lang.security.use-defused-xml",
+      "path": "benchmarks/probe_diagnostics/muni_v27/planora-muni-fspsx-frontier-v27-tests.py",
+      "start_line": 31,
+      "end_line": 31,
+      "source_sha256": "6699f5d59b9218613fd7261fb6d68cda808e10b9967d05ebe24d505cc0d68aa5",
+      "reason": "This frozen benchmark import is used only for Element/SubElement construction, indentation and tostring serialization. Every alias use was checked; none parses XML or passes the module indirectly. The historical probe bytes remain unchanged."
+    },
+    {
+      "scanner": "semgrep",
+      "rule_id": "python.lang.security.audit.exec-detected",
+      "path": "benchmarks/probe_diagnostics/muni_v27/planora-muni-fspsx-frontier-v27-tests.py",
+      "start_line": 257,
+      "end_line": 257,
+      "source_sha256": "6699f5d59b9218613fd7261fb6d68cda808e10b9967d05ebe24d505cc0d68aa5",
+      "reason": "This historical test loads a fixed sibling supervisor source and compiles only an explicit whitelist of function/class definitions and future imports for Windows-compatible guard fixtures. Call sites supply the repository fixture path; no external payload, user expression or live service runs here."
+    },
+    {
+      "scanner": "semgrep",
+      "rule_id": "python.lang.security.use-defused-xml",
+      "path": "benchmarks/probe_diagnostics/muni_v28/planora-muni-fspsx-frontier-v28-runner.py",
+      "start_line": 40,
+      "end_line": 40,
+      "source_sha256": "eecb188157adcf976488db855d452887ac479620f4299acf65100c23e22980b9",
+      "reason": "This frozen benchmark import is used only for Element/SubElement construction, indentation and tostring serialization. Every alias use was checked; none parses XML or passes the module indirectly. The historical probe bytes remain unchanged."
+    },
+    {
+      "scanner": "semgrep",
+      "rule_id": "python.lang.security.audit.exec-detected",
+      "path": "benchmarks/probe_diagnostics/muni_v28/planora-muni-fspsx-frontier-v28-runner.py",
+      "start_line": 919,
+      "end_line": 919,
+      "source_sha256": "eecb188157adcf976488db855d452887ac479620f4299acf65100c23e22980b9",
+      "reason": "This historical runtime loader executes the same descriptor bytes after exact size and SHA256 admission. Its runtime bundle admission verifies required memfd seals, pinned RECORD-derived source entries and descriptor identity before import. Actual Linux mutable-descriptor and digest-drift negatives reject."
+    },
+    {
+      "scanner": "semgrep",
+      "rule_id": "python.lang.security.audit.exec-detected",
+      "path": "benchmarks/probe_diagnostics/muni_v28/planora-muni-fspsx-frontier-v28-runner.py",
+      "start_line": 1542,
+      "end_line": 1542,
+      "source_sha256": "eecb188157adcf976488db855d452887ac479620f4299acf65100c23e22980b9",
+      "reason": "This frozen benchmark import hook consumes immutable bytes installed by install_sealed_sources after sealed descriptor/hash validation. The runner first admits fixed capture labels and EXPECTED_HASHES; its captured supervisor supplies the source evidence. The hook is not an untrusted-source execution API."
+    },
+    {
+      "scanner": "semgrep",
+      "rule_id": "python.lang.security.use-defused-xml",
+      "path": "benchmarks/probe_diagnostics/muni_v28/planora-muni-fspsx-frontier-v28-supervisor.py",
+      "start_line": 27,
+      "end_line": 27,
+      "source_sha256": "3c3755ffe2ffc801d73bcaddc5b55fb93803d42efb09af36ad42c0f71a8f87e6",
+      "reason": "This frozen offline supervisor parses a bounded private child artifact from its fixed hash-admitted producer, which uses escaped ElementTree serialization. Normal product, worker, web and CI entry paths exclude this archive. This intentional historical stdlib parser does not reject DTDs or make untrusted XML safe."
+    },
+    {
+      "scanner": "semgrep",
+      "rule_id": "python.lang.security.use-defused-xml",
+      "path": "benchmarks/probe_diagnostics/muni_v28/planora-muni-fspsx-frontier-v28-tests.py",
+      "start_line": 31,
+      "end_line": 31,
+      "source_sha256": "f7d16b989ecd3ac22bd218da24c5e9c9bc1dca875f3593d0bad9248eaacfa5ab",
+      "reason": "This frozen benchmark import is used only for Element/SubElement construction, indentation and tostring serialization. Every alias use was checked; none parses XML or passes the module indirectly. The historical probe bytes remain unchanged."
+    },
+    {
+      "scanner": "semgrep",
+      "rule_id": "python.lang.security.audit.exec-detected",
+      "path": "benchmarks/probe_diagnostics/muni_v28/planora-muni-fspsx-frontier-v28-tests.py",
+      "start_line": 257,
+      "end_line": 257,
+      "source_sha256": "f7d16b989ecd3ac22bd218da24c5e9c9bc1dca875f3593d0bad9248eaacfa5ab",
+      "reason": "This historical test loads a fixed sibling supervisor source and compiles only an explicit whitelist of function/class definitions and future imports for Windows-compatible guard fixtures. Call sites supply the repository fixture path; no external payload, user expression or live service runs here."
+    },
+    {
+      "scanner": "semgrep",
+      "rule_id": "python.lang.security.audit.exec-detected",
+      "path": "benchmarks/probe_diagnostics/puproj_v13/planora-puproj-frontier-joint-v12-launcher.py",
+      "start_line": 157,
+      "end_line": 157,
+      "source_sha256": "60d050eaecf678544e49238f2d8a2a4fa4289e36126be16fe15a67f7202f761c",
+      "reason": "This historical launcher first verifies its bootstrap handoff, opens the fixed supervisor with O_NOFOLLOW, checks stable identity and its literal SHA256, then seals and rereads the same source before executing it. Exact hash and symlink rejection were tested for every launcher variant."
+    },
+    {
+      "scanner": "semgrep",
+      "rule_id": "python.lang.security.use-defused-xml",
+      "path": "benchmarks/probe_diagnostics/puproj_v13/planora-puproj-frontier-joint-v12-runner.py",
+      "start_line": 35,
+      "end_line": 35,
+      "source_sha256": "f647bf45168f392b9deb3274c498305a0cc892b8638af8535569dc2d0a03a6f2",
+      "reason": "This frozen benchmark import is used only for Element/SubElement construction, indentation and tostring serialization. Every alias use was checked; none parses XML or passes the module indirectly. The historical probe bytes remain unchanged."
+    },
+    {
+      "scanner": "semgrep",
+      "rule_id": "python.lang.security.audit.exec-detected",
+      "path": "benchmarks/probe_diagnostics/puproj_v13/planora-puproj-frontier-joint-v12-runner.py",
+      "start_line": 540,
+      "end_line": 540,
+      "source_sha256": "f647bf45168f392b9deb3274c498305a0cc892b8638af8535569dc2d0a03a6f2",
+      "reason": "This historical benchmark import hook receives immutable payloads from load_exact_runtime after fixed-label load_capture_manifest admission verifies required memfd seals, source identity and pinned EXPECTED_HASHES. It compiles those captured bytes rather than reopening mutable source paths."
+    },
+    {
+      "scanner": "semgrep",
+      "rule_id": "python.lang.security.audit.exec-detected",
+      "path": "benchmarks/probe_diagnostics/puproj_v13/planora-puproj-frontier-joint-v12-runner.py",
+      "start_line": 880,
+      "end_line": 880,
+      "source_sha256": "f647bf45168f392b9deb3274c498305a0cc892b8638af8535569dc2d0a03a6f2",
+      "reason": "This historical runtime loader executes the same descriptor bytes after exact size and SHA256 admission. Its runtime bundle admission verifies required memfd seals, pinned RECORD-derived source entries and descriptor identity before import. Actual Linux mutable-descriptor and digest-drift negatives reject."
+    },
+    {
+      "scanner": "semgrep",
+      "rule_id": "python.lang.security.audit.exec-detected",
+      "path": "benchmarks/probe_diagnostics/puproj_v13/planora-puproj-frontier-joint-v13-launcher.py",
+      "start_line": 160,
+      "end_line": 160,
+      "source_sha256": "04381450d30ef86077c0101b16f700768db605ff17aa006c29a3bcdfd23eef39",
+      "reason": "This historical launcher first verifies its bootstrap handoff, opens the fixed supervisor with O_NOFOLLOW, checks stable identity and its literal SHA256, then seals and rereads the same source before executing it. Exact hash and symlink rejection were tested for every launcher variant."
+    },
+    {
+      "scanner": "semgrep",
+      "rule_id": "python.lang.security.use-defused-xml",
+      "path": "benchmarks/probe_diagnostics/puproj_v13/planora-puproj-frontier-joint-v13-runner.py",
+      "start_line": 35,
+      "end_line": 35,
+      "source_sha256": "f639590511d2d4de5de9caf722bbc2cdb1fba692951cb38e580634cf24ff6e1b",
+      "reason": "This frozen benchmark import is used only for Element/SubElement construction, indentation and tostring serialization. Every alias use was checked; none parses XML or passes the module indirectly. The historical probe bytes remain unchanged."
+    },
+    {
+      "scanner": "semgrep",
+      "rule_id": "python.lang.security.audit.exec-detected",
+      "path": "benchmarks/probe_diagnostics/puproj_v13/planora-puproj-frontier-joint-v13-runner.py",
+      "start_line": 540,
+      "end_line": 540,
+      "source_sha256": "f639590511d2d4de5de9caf722bbc2cdb1fba692951cb38e580634cf24ff6e1b",
+      "reason": "This historical benchmark import hook receives immutable payloads from load_exact_runtime after fixed-label load_capture_manifest admission verifies required memfd seals, source identity and pinned EXPECTED_HASHES. It compiles those captured bytes rather than reopening mutable source paths."
+    },
+    {
+      "scanner": "semgrep",
+      "rule_id": "python.lang.security.audit.exec-detected",
+      "path": "benchmarks/probe_diagnostics/puproj_v13/planora-puproj-frontier-joint-v13-runner.py",
+      "start_line": 880,
+      "end_line": 880,
+      "source_sha256": "f639590511d2d4de5de9caf722bbc2cdb1fba692951cb38e580634cf24ff6e1b",
+      "reason": "This historical runtime loader executes the same descriptor bytes after exact size and SHA256 admission. Its runtime bundle admission verifies required memfd seals, pinned RECORD-derived source entries and descriptor identity before import. Actual Linux mutable-descriptor and digest-drift negatives reject."
+    },
+    {
+      "scanner": "semgrep",
+      "rule_id": "python.lang.security.audit.exec-detected",
+      "path": "benchmarks/probe_diagnostics/puproj_v14/planora-puproj-frontier-joint-v14-launcher.py",
+      "start_line": 160,
+      "end_line": 160,
+      "source_sha256": "c75e0236a99dc60ec9b5bf1426e25fd61864540adad721b339b1dd605366b849",
+      "reason": "This historical launcher first verifies its bootstrap handoff, opens the fixed supervisor with O_NOFOLLOW, checks stable identity and its literal SHA256, then seals and rereads the same source before executing it. Exact hash and symlink rejection were tested for every launcher variant."
+    },
+    {
+      "scanner": "semgrep",
+      "rule_id": "python.lang.security.use-defused-xml",
+      "path": "benchmarks/probe_diagnostics/puproj_v14/planora-puproj-frontier-joint-v14-runner.py",
+      "start_line": 35,
+      "end_line": 35,
+      "source_sha256": "a5983d898eee5240bca1e23901f4f6d5e0ee3025b730b42205ea530f509bd9de",
+      "reason": "This frozen benchmark import is used only for Element/SubElement construction, indentation and tostring serialization. Every alias use was checked; none parses XML or passes the module indirectly. The historical probe bytes remain unchanged."
+    },
+    {
+      "scanner": "semgrep",
+      "rule_id": "python.lang.security.audit.exec-detected",
+      "path": "benchmarks/probe_diagnostics/puproj_v14/planora-puproj-frontier-joint-v14-runner.py",
+      "start_line": 540,
+      "end_line": 540,
+      "source_sha256": "a5983d898eee5240bca1e23901f4f6d5e0ee3025b730b42205ea530f509bd9de",
+      "reason": "This historical benchmark import hook receives immutable payloads from load_exact_runtime after fixed-label load_capture_manifest admission verifies required memfd seals, source identity and pinned EXPECTED_HASHES. It compiles those captured bytes rather than reopening mutable source paths."
+    },
+    {
+      "scanner": "semgrep",
+      "rule_id": "python.lang.security.audit.exec-detected",
+      "path": "benchmarks/probe_diagnostics/puproj_v14/planora-puproj-frontier-joint-v14-runner.py",
+      "start_line": 880,
+      "end_line": 880,
+      "source_sha256": "a5983d898eee5240bca1e23901f4f6d5e0ee3025b730b42205ea530f509bd9de",
+      "reason": "This historical runtime loader executes the same descriptor bytes after exact size and SHA256 admission. Its runtime bundle admission verifies required memfd seals, pinned RECORD-derived source entries and descriptor identity before import. Actual Linux mutable-descriptor and digest-drift negatives reject."
+    },
+    {
+      "scanner": "semgrep",
+      "rule_id": "python.lang.security.audit.exec-detected",
+      "path": "benchmarks/probe_diagnostics/puproj_v15/planora-puproj-frontier-joint-v15-launcher.py",
+      "start_line": 160,
+      "end_line": 160,
+      "source_sha256": "5c47b9369c7b4d488c0c78d41ae1cc206f5d21364d500799e5020afdb3aff5b2",
+      "reason": "This historical launcher first verifies its bootstrap handoff, opens the fixed supervisor with O_NOFOLLOW, checks stable identity and its literal SHA256, then seals and rereads the same source before executing it. Exact hash and symlink rejection were tested for every launcher variant."
+    },
+    {
+      "scanner": "semgrep",
+      "rule_id": "python.lang.security.use-defused-xml",
+      "path": "benchmarks/probe_diagnostics/puproj_v15/planora-puproj-frontier-joint-v15-runner.py",
+      "start_line": 35,
+      "end_line": 35,
+      "source_sha256": "43d3badb2edd1329d2b18cfa5cb0a7453e947b3e2904780305288d427975af16",
+      "reason": "This frozen benchmark import is used only for Element/SubElement construction, indentation and tostring serialization. Every alias use was checked; none parses XML or passes the module indirectly. The historical probe bytes remain unchanged."
+    },
+    {
+      "scanner": "semgrep",
+      "rule_id": "python.lang.security.audit.exec-detected",
+      "path": "benchmarks/probe_diagnostics/puproj_v15/planora-puproj-frontier-joint-v15-runner.py",
+      "start_line": 541,
+      "end_line": 541,
+      "source_sha256": "43d3badb2edd1329d2b18cfa5cb0a7453e947b3e2904780305288d427975af16",
+      "reason": "This historical benchmark import hook receives immutable payloads from load_exact_runtime after fixed-label load_capture_manifest admission verifies required memfd seals, source identity and pinned EXPECTED_HASHES. It compiles those captured bytes rather than reopening mutable source paths."
+    },
+    {
+      "scanner": "semgrep",
+      "rule_id": "python.lang.security.audit.exec-detected",
+      "path": "benchmarks/probe_diagnostics/puproj_v15/planora-puproj-frontier-joint-v15-runner.py",
+      "start_line": 881,
+      "end_line": 881,
+      "source_sha256": "43d3badb2edd1329d2b18cfa5cb0a7453e947b3e2904780305288d427975af16",
+      "reason": "This historical runtime loader executes the same descriptor bytes after exact size and SHA256 admission. Its runtime bundle admission verifies required memfd seals, pinned RECORD-derived source entries and descriptor identity before import. Actual Linux mutable-descriptor and digest-drift negatives reject."
+    },
+    {
+      "scanner": "semgrep",
+      "rule_id": "python.lang.security.audit.exec-detected",
+      "path": "benchmarks/probe_diagnostics/puproj_v16/planora-puproj-frontier-joint-v16-launcher.py",
+      "start_line": 160,
+      "end_line": 160,
+      "source_sha256": "c278835e21563039e1baa4564d19432dbf972b0c84c3da301019088d1349b69f",
+      "reason": "This historical launcher first verifies its bootstrap handoff, opens the fixed supervisor with O_NOFOLLOW, checks stable identity and its literal SHA256, then seals and rereads the same source before executing it. Exact hash and symlink rejection were tested for every launcher variant."
+    },
+    {
+      "scanner": "semgrep",
+      "rule_id": "python.lang.security.use-defused-xml",
+      "path": "benchmarks/probe_diagnostics/puproj_v16/planora-puproj-frontier-joint-v16-runner.py",
+      "start_line": 35,
+      "end_line": 35,
+      "source_sha256": "e2a10c4d1e934d86523a4680fc0d77620a7f260112ca75361766ed1a5f5d78e9",
+      "reason": "This frozen benchmark import is used only for Element/SubElement construction, indentation and tostring serialization. Every alias use was checked; none parses XML or passes the module indirectly. The historical probe bytes remain unchanged."
+    },
+    {
+      "scanner": "semgrep",
+      "rule_id": "python.lang.security.audit.exec-detected",
+      "path": "benchmarks/probe_diagnostics/puproj_v16/planora-puproj-frontier-joint-v16-runner.py",
+      "start_line": 468,
+      "end_line": 468,
+      "source_sha256": "e2a10c4d1e934d86523a4680fc0d77620a7f260112ca75361766ed1a5f5d78e9",
+      "reason": "This historical benchmark import hook receives immutable payloads from load_exact_runtime after fixed-label load_capture_manifest admission verifies required memfd seals, source identity and pinned EXPECTED_HASHES. It compiles those captured bytes rather than reopening mutable source paths."
+    },
+    {
+      "scanner": "semgrep",
+      "rule_id": "python.lang.security.audit.exec-detected",
+      "path": "benchmarks/probe_diagnostics/puproj_v16/planora-puproj-frontier-joint-v16-runner.py",
+      "start_line": 808,
+      "end_line": 808,
+      "source_sha256": "e2a10c4d1e934d86523a4680fc0d77620a7f260112ca75361766ed1a5f5d78e9",
+      "reason": "This historical runtime loader executes the same descriptor bytes after exact size and SHA256 admission. Its runtime bundle admission verifies required memfd seals, pinned RECORD-derived source entries and descriptor identity before import. Actual Linux mutable-descriptor and digest-drift negatives reject."
+    },
+    {
+      "scanner": "semgrep",
+      "rule_id": "python.lang.security.audit.exec-detected",
+      "path": "benchmarks/probe_diagnostics/puproj_v17/planora-puproj-frontier-joint-v17-launcher.py",
+      "start_line": 160,
+      "end_line": 160,
+      "source_sha256": "ba66eab59248eb90fd5649bae58eb5fbddb46270cdb79bc20fb32bbd394a198b",
+      "reason": "This historical launcher first verifies its bootstrap handoff, opens the fixed supervisor with O_NOFOLLOW, checks stable identity and its literal SHA256, then seals and rereads the same source before executing it. Exact hash and symlink rejection were tested for every launcher variant."
+    },
+    {
+      "scanner": "semgrep",
+      "rule_id": "python.lang.security.use-defused-xml",
+      "path": "benchmarks/probe_diagnostics/puproj_v17/planora-puproj-frontier-joint-v17-runner.py",
+      "start_line": 35,
+      "end_line": 35,
+      "source_sha256": "e2aee5251b73437b59b023a7de061420f90276baaed8d867e2ad9f9ef03b21f0",
+      "reason": "This frozen benchmark import is used only for Element/SubElement construction, indentation and tostring serialization. Every alias use was checked; none parses XML or passes the module indirectly. The historical probe bytes remain unchanged."
+    },
+    {
+      "scanner": "semgrep",
+      "rule_id": "python.lang.security.audit.exec-detected",
+      "path": "benchmarks/probe_diagnostics/puproj_v17/planora-puproj-frontier-joint-v17-runner.py",
+      "start_line": 535,
+      "end_line": 535,
+      "source_sha256": "e2aee5251b73437b59b023a7de061420f90276baaed8d867e2ad9f9ef03b21f0",
+      "reason": "This historical benchmark import hook receives immutable payloads from load_exact_runtime after fixed-label load_capture_manifest admission verifies required memfd seals, source identity and pinned EXPECTED_HASHES. It compiles those captured bytes rather than reopening mutable source paths."
+    },
+    {
+      "scanner": "semgrep",
+      "rule_id": "python.lang.security.audit.exec-detected",
+      "path": "benchmarks/probe_diagnostics/puproj_v17/planora-puproj-frontier-joint-v17-runner.py",
+      "start_line": 875,
+      "end_line": 875,
+      "source_sha256": "e2aee5251b73437b59b023a7de061420f90276baaed8d867e2ad9f9ef03b21f0",
+      "reason": "This historical runtime loader executes the same descriptor bytes after exact size and SHA256 admission. Its runtime bundle admission verifies required memfd seals, pinned RECORD-derived source entries and descriptor identity before import. Actual Linux mutable-descriptor and digest-drift negatives reject."
+    },
+    {
+      "scanner": "semgrep",
+      "rule_id": "python.lang.security.audit.exec-detected",
+      "path": "benchmarks/probe_diagnostics/puproj_v18/planora-puproj-frontier-joint-v18-launcher.py",
+      "start_line": 160,
+      "end_line": 160,
+      "source_sha256": "fdc8f7e1ba37eefef5b67afe5e69bcc476970ef99d6fbf27b1ad1c7bee542b4d",
+      "reason": "This historical launcher first verifies its bootstrap handoff, opens the fixed supervisor with O_NOFOLLOW, checks stable identity and its literal SHA256, then seals and rereads the same source before executing it. Exact hash and symlink rejection were tested for every launcher variant."
+    },
+    {
+      "scanner": "semgrep",
+      "rule_id": "python.lang.security.use-defused-xml",
+      "path": "benchmarks/probe_diagnostics/puproj_v18/planora-puproj-frontier-joint-v18-runner.py",
+      "start_line": 36,
+      "end_line": 36,
+      "source_sha256": "a6a016ed13db09879a9c9d3ad9ae7dd565f92a8ac0a225063ec5f6ddafe2b2d6",
+      "reason": "This frozen benchmark import is used only for Element/SubElement construction, indentation and tostring serialization. Every alias use was checked; none parses XML or passes the module indirectly. The historical probe bytes remain unchanged."
+    },
+    {
+      "scanner": "semgrep",
+      "rule_id": "python.lang.security.audit.exec-detected",
+      "path": "benchmarks/probe_diagnostics/puproj_v18/planora-puproj-frontier-joint-v18-runner.py",
+      "start_line": 546,
+      "end_line": 546,
+      "source_sha256": "a6a016ed13db09879a9c9d3ad9ae7dd565f92a8ac0a225063ec5f6ddafe2b2d6",
+      "reason": "This historical benchmark import hook receives immutable payloads from load_exact_runtime after fixed-label load_capture_manifest admission verifies required memfd seals, source identity and pinned EXPECTED_HASHES. It compiles those captured bytes rather than reopening mutable source paths."
+    },
+    {
+      "scanner": "semgrep",
+      "rule_id": "python.lang.security.audit.exec-detected",
+      "path": "benchmarks/probe_diagnostics/puproj_v18/planora-puproj-frontier-joint-v18-runner.py",
+      "start_line": 902,
+      "end_line": 902,
+      "source_sha256": "a6a016ed13db09879a9c9d3ad9ae7dd565f92a8ac0a225063ec5f6ddafe2b2d6",
+      "reason": "This historical runtime loader executes the same descriptor bytes after exact size and SHA256 admission. Its runtime bundle admission verifies required memfd seals, pinned RECORD-derived source entries and descriptor identity before import. Actual Linux mutable-descriptor and digest-drift negatives reject."
+    },
+    {
+      "scanner": "semgrep",
+      "rule_id": "python.lang.security.audit.exec-detected",
+      "path": "benchmarks/probe_diagnostics/puproj_v19/planora-puproj-frontier-joint-v19-launcher.py",
+      "start_line": 160,
+      "end_line": 160,
+      "source_sha256": "a31a189c8aec149c527ac91a83c099c581949aa26f0f8326bd706e7982d46e21",
+      "reason": "This historical launcher first verifies its bootstrap handoff, opens the fixed supervisor with O_NOFOLLOW, checks stable identity and its literal SHA256, then seals and rereads the same source before executing it. Exact hash and symlink rejection were tested for every launcher variant."
+    },
+    {
+      "scanner": "semgrep",
+      "rule_id": "python.lang.security.use-defused-xml",
+      "path": "benchmarks/probe_diagnostics/puproj_v19/planora-puproj-frontier-joint-v19-runner.py",
+      "start_line": 36,
+      "end_line": 36,
+      "source_sha256": "43772c50e4804a56fc995542c1fbe61bef66e9e360eae7d7c24aeda8f0023548",
+      "reason": "This frozen benchmark import is used only for Element/SubElement construction, indentation and tostring serialization. Every alias use was checked; none parses XML or passes the module indirectly. The historical probe bytes remain unchanged."
+    },
+    {
+      "scanner": "semgrep",
+      "rule_id": "python.lang.security.audit.exec-detected",
+      "path": "benchmarks/probe_diagnostics/puproj_v19/planora-puproj-frontier-joint-v19-runner.py",
+      "start_line": 546,
+      "end_line": 546,
+      "source_sha256": "43772c50e4804a56fc995542c1fbe61bef66e9e360eae7d7c24aeda8f0023548",
+      "reason": "This historical benchmark import hook receives immutable payloads from load_exact_runtime after fixed-label load_capture_manifest admission verifies required memfd seals, source identity and pinned EXPECTED_HASHES. It compiles those captured bytes rather than reopening mutable source paths."
+    },
+    {
+      "scanner": "semgrep",
+      "rule_id": "python.lang.security.audit.exec-detected",
+      "path": "benchmarks/probe_diagnostics/puproj_v19/planora-puproj-frontier-joint-v19-runner.py",
+      "start_line": 902,
+      "end_line": 902,
+      "source_sha256": "43772c50e4804a56fc995542c1fbe61bef66e9e360eae7d7c24aeda8f0023548",
+      "reason": "This historical runtime loader executes the same descriptor bytes after exact size and SHA256 admission. Its runtime bundle admission verifies required memfd seals, pinned RECORD-derived source entries and descriptor identity before import. Actual Linux mutable-descriptor and digest-drift negatives reject."
+    },
+    {
+      "scanner": "semgrep",
+      "rule_id": "python.lang.security.audit.exec-detected",
+      "path": "benchmarks/probe_diagnostics/puproj_v20/planora-puproj-frontier-joint-v20-launcher.py",
+      "start_line": 160,
+      "end_line": 160,
+      "source_sha256": "8a66a2d82fe0e48dd76514142ae2986d5230a57d4e31d16d682a65f7d3b188ea",
+      "reason": "This historical launcher first verifies its bootstrap handoff, opens the fixed supervisor with O_NOFOLLOW, checks stable identity and its literal SHA256, then seals and rereads the same source before executing it. Exact hash and symlink rejection were tested for every launcher variant."
+    },
+    {
+      "scanner": "semgrep",
+      "rule_id": "python.lang.security.audit.exec-detected",
+      "path": "benchmarks/probe_diagnostics/puproj_v21/planora-puproj-frontier-joint-v21-launcher.py",
+      "start_line": 160,
+      "end_line": 160,
+      "source_sha256": "4f76f536b0f110af644a95da920157a7df9acacbb53d6f213b5b82589b04b82a",
+      "reason": "This historical launcher first verifies its bootstrap handoff, opens the fixed supervisor with O_NOFOLLOW, checks stable identity and its literal SHA256, then seals and rereads the same source before executing it. Exact hash and symlink rejection were tested for every launcher variant."
+    },
+    {
+      "scanner": "semgrep",
+      "rule_id": "python.lang.security.use-defused-xml",
+      "path": "benchmarks/probe_diagnostics/puproj_v21/planora-puproj-frontier-joint-v21-runner.py",
+      "start_line": 36,
+      "end_line": 36,
+      "source_sha256": "ef2fdc7d68167f421eab3d3544969795ed18e78b02f2b7fff9b5db9aa4374e05",
+      "reason": "This frozen benchmark import is used only for Element/SubElement construction, indentation and tostring serialization. Every alias use was checked; none parses XML or passes the module indirectly. The historical probe bytes remain unchanged."
+    },
+    {
+      "scanner": "semgrep",
+      "rule_id": "python.lang.security.audit.exec-detected",
+      "path": "benchmarks/probe_diagnostics/puproj_v21/planora-puproj-frontier-joint-v21-runner.py",
+      "start_line": 546,
+      "end_line": 546,
+      "source_sha256": "ef2fdc7d68167f421eab3d3544969795ed18e78b02f2b7fff9b5db9aa4374e05",
+      "reason": "This historical benchmark import hook receives immutable payloads from load_exact_runtime after fixed-label load_capture_manifest admission verifies required memfd seals, source identity and pinned EXPECTED_HASHES. It compiles those captured bytes rather than reopening mutable source paths."
+    },
+    {
+      "scanner": "semgrep",
+      "rule_id": "python.lang.security.audit.exec-detected",
+      "path": "benchmarks/probe_diagnostics/puproj_v21/planora-puproj-frontier-joint-v21-runner.py",
+      "start_line": 902,
+      "end_line": 902,
+      "source_sha256": "ef2fdc7d68167f421eab3d3544969795ed18e78b02f2b7fff9b5db9aa4374e05",
+      "reason": "This historical runtime loader executes the same descriptor bytes after exact size and SHA256 admission. Its runtime bundle admission verifies required memfd seals, pinned RECORD-derived source entries and descriptor identity before import. Actual Linux mutable-descriptor and digest-drift negatives reject."
+    },
+    {
+      "scanner": "semgrep",
+      "rule_id": "python.lang.security.audit.exec-detected",
+      "path": "benchmarks/probe_diagnostics/puproj_v22/planora-puproj-frontier-joint-v22-launcher.py",
+      "start_line": 160,
+      "end_line": 160,
+      "source_sha256": "5a4c0a319e130817bed19fc9ddea411dd45eaaa3c3086b8d51420d83f96a02c9",
+      "reason": "This historical launcher first verifies its bootstrap handoff, opens the fixed supervisor with O_NOFOLLOW, checks stable identity and its literal SHA256, then seals and rereads the same source before executing it. Exact hash and symlink rejection were tested for every launcher variant."
+    },
+    {
+      "scanner": "semgrep",
+      "rule_id": "python.lang.security.use-defused-xml",
+      "path": "benchmarks/probe_diagnostics/puproj_v22/planora-puproj-frontier-joint-v22-runner.py",
+      "start_line": 37,
+      "end_line": 37,
+      "source_sha256": "4b18f5de8da5593cb6c9c4201ae11395c4888734ee0dfd6db54213a2b0db2538",
+      "reason": "This frozen benchmark import is used only for Element/SubElement construction, indentation and tostring serialization. Every alias use was checked; none parses XML or passes the module indirectly. The historical probe bytes remain unchanged."
+    },
+    {
+      "scanner": "semgrep",
+      "rule_id": "python.lang.security.audit.exec-detected",
+      "path": "benchmarks/probe_diagnostics/puproj_v22/planora-puproj-frontier-joint-v22-runner.py",
+      "start_line": 606,
+      "end_line": 606,
+      "source_sha256": "4b18f5de8da5593cb6c9c4201ae11395c4888734ee0dfd6db54213a2b0db2538",
+      "reason": "This historical benchmark import hook receives immutable payloads from load_exact_runtime after fixed-label load_capture_manifest admission verifies required memfd seals, source identity and pinned EXPECTED_HASHES. It compiles those captured bytes rather than reopening mutable source paths."
+    },
+    {
+      "scanner": "semgrep",
+      "rule_id": "python.lang.security.audit.exec-detected",
+      "path": "benchmarks/probe_diagnostics/puproj_v22/planora-puproj-frontier-joint-v22-runner.py",
+      "start_line": 962,
+      "end_line": 962,
+      "source_sha256": "4b18f5de8da5593cb6c9c4201ae11395c4888734ee0dfd6db54213a2b0db2538",
+      "reason": "This historical runtime loader executes the same descriptor bytes after exact size and SHA256 admission. Its runtime bundle admission verifies required memfd seals, pinned RECORD-derived source entries and descriptor identity before import. Actual Linux mutable-descriptor and digest-drift negatives reject."
+    },
+    {
+      "scanner": "semgrep",
+      "rule_id": "python.lang.security.audit.exec-detected",
+      "path": "benchmarks/probe_diagnostics/puproj_v22/planora-puproj-frontier-joint-v22-tests.py",
+      "start_line": 52,
+      "end_line": 52,
+      "source_sha256": "4540ccb8122d13e53cfa10ee0a168a819d7049864011b8dcc5bfc889be98fcdd",
+      "reason": "This historical test compiles only explicitly named assignments and guard functions from its fixed sibling RUNNER repository fixture. It supplies a dedicated test namespace; no arbitrary external path, user expression, runtime module body or production service is evaluated."
+    },
+    {
+      "scanner": "semgrep",
+      "rule_id": "python.lang.security.audit.exec-detected",
+      "path": "benchmarks/probe_diagnostics/puproj_v23/planora-puproj-frontier-joint-v23-launcher.py",
+      "start_line": 160,
+      "end_line": 160,
+      "source_sha256": "7186c85ea716170ffb2d51fbec94f791cc0f67850e8b3a7224591a35e52be3bf",
+      "reason": "This historical launcher first verifies its bootstrap handoff, opens the fixed supervisor with O_NOFOLLOW, checks stable identity and its literal SHA256, then seals and rereads the same source before executing it. Exact hash and symlink rejection were tested for every launcher variant."
+    },
+    {
+      "scanner": "semgrep",
+      "rule_id": "python.lang.security.use-defused-xml",
+      "path": "benchmarks/probe_diagnostics/puproj_v23/planora-puproj-frontier-joint-v23-runner.py",
+      "start_line": 37,
+      "end_line": 37,
+      "source_sha256": "cbeb81184ff3df1fd10610d885acde26b1a8717c952a7d40080398d3961681b1",
+      "reason": "This frozen benchmark import is used only for Element/SubElement construction, indentation and tostring serialization. Every alias use was checked; none parses XML or passes the module indirectly. The historical probe bytes remain unchanged."
+    },
+    {
+      "scanner": "semgrep",
+      "rule_id": "python.lang.security.audit.exec-detected",
+      "path": "benchmarks/probe_diagnostics/puproj_v23/planora-puproj-frontier-joint-v23-runner.py",
+      "start_line": 606,
+      "end_line": 606,
+      "source_sha256": "cbeb81184ff3df1fd10610d885acde26b1a8717c952a7d40080398d3961681b1",
+      "reason": "This historical benchmark import hook receives immutable payloads from load_exact_runtime after fixed-label load_capture_manifest admission verifies required memfd seals, source identity and pinned EXPECTED_HASHES. It compiles those captured bytes rather than reopening mutable source paths."
+    },
+    {
+      "scanner": "semgrep",
+      "rule_id": "python.lang.security.audit.exec-detected",
+      "path": "benchmarks/probe_diagnostics/puproj_v23/planora-puproj-frontier-joint-v23-runner.py",
+      "start_line": 962,
+      "end_line": 962,
+      "source_sha256": "cbeb81184ff3df1fd10610d885acde26b1a8717c952a7d40080398d3961681b1",
+      "reason": "This historical runtime loader executes the same descriptor bytes after exact size and SHA256 admission. Its runtime bundle admission verifies required memfd seals, pinned RECORD-derived source entries and descriptor identity before import. Actual Linux mutable-descriptor and digest-drift negatives reject."
+    },
+    {
+      "scanner": "semgrep",
+      "rule_id": "python.lang.security.audit.exec-detected",
+      "path": "benchmarks/probe_diagnostics/puproj_v24/planora-puproj-frontier-joint-v24-launcher.py",
+      "start_line": 160,
+      "end_line": 160,
+      "source_sha256": "b4805dfca30522d394039f7409d6bf06e85723280794efc2972d01594d5ae40a",
+      "reason": "This historical launcher first verifies its bootstrap handoff, opens the fixed supervisor with O_NOFOLLOW, checks stable identity and its literal SHA256, then seals and rereads the same source before executing it. Exact hash and symlink rejection were tested for every launcher variant."
+    },
+    {
+      "scanner": "semgrep",
+      "rule_id": "python.lang.security.use-defused-xml",
+      "path": "benchmarks/probe_diagnostics/puproj_v24/planora-puproj-frontier-joint-v24-runner.py",
+      "start_line": 37,
+      "end_line": 37,
+      "source_sha256": "eccb77e74988301eb750a5e9e4bbf495d89aa718bf04d5dff21d1ee0640d7e78",
+      "reason": "This frozen benchmark import is used only for Element/SubElement construction, indentation and tostring serialization. Every alias use was checked; none parses XML or passes the module indirectly. The historical probe bytes remain unchanged."
+    },
+    {
+      "scanner": "semgrep",
+      "rule_id": "python.lang.security.audit.exec-detected",
+      "path": "benchmarks/probe_diagnostics/puproj_v24/planora-puproj-frontier-joint-v24-runner.py",
+      "start_line": 606,
+      "end_line": 606,
+      "source_sha256": "eccb77e74988301eb750a5e9e4bbf495d89aa718bf04d5dff21d1ee0640d7e78",
+      "reason": "This historical benchmark import hook receives immutable payloads from load_exact_runtime after fixed-label load_capture_manifest admission verifies required memfd seals, source identity and pinned EXPECTED_HASHES. It compiles those captured bytes rather than reopening mutable source paths."
+    },
+    {
+      "scanner": "semgrep",
+      "rule_id": "python.lang.security.audit.exec-detected",
+      "path": "benchmarks/probe_diagnostics/puproj_v24/planora-puproj-frontier-joint-v24-runner.py",
+      "start_line": 962,
+      "end_line": 962,
+      "source_sha256": "eccb77e74988301eb750a5e9e4bbf495d89aa718bf04d5dff21d1ee0640d7e78",
+      "reason": "This historical runtime loader executes the same descriptor bytes after exact size and SHA256 admission. Its runtime bundle admission verifies required memfd seals, pinned RECORD-derived source entries and descriptor identity before import. Actual Linux mutable-descriptor and digest-drift negatives reject."
+    },
+    {
+      "scanner": "semgrep",
+      "rule_id": "python.lang.security.deserialization.avoid-pickle",
+      "path": "core/engine_cli.py",
+      "start_line": 462,
+      "end_line": 462,
+      "source_sha256": "5023cf0d15004b709441282cccbe179e6dded01fa8774c004e42f2b2de45ffc6",
+      "reason": "The matched AST call is pickle.dump; it serializes existing process-owned data and does not deserialize bytes. All five active byte-reading sites use the tested restricted reader. The v1 wire format remains compatible with existing packaged workers."
+    },
+    {
+      "scanner": "semgrep",
+      "rule_id": "python.lang.security.deserialization.avoid-pickle",
+      "path": "core/engine_cli.py",
+      "start_line": 477,
+      "end_line": 477,
+      "source_sha256": "5023cf0d15004b709441282cccbe179e6dded01fa8774c004e42f2b2de45ffc6",
+      "reason": "The matched AST call is pickle.dump; it serializes existing process-owned data and does not deserialize bytes. All five active byte-reading sites use the tested restricted reader. The v1 wire format remains compatible with existing packaged workers."
+    },
+    {
+      "scanner": "semgrep",
+      "rule_id": "python.lang.security.deserialization.avoid-pickle",
+      "path": "core/engine_cli.py",
+      "start_line": 499,
+      "end_line": 510,
+      "source_sha256": "5023cf0d15004b709441282cccbe179e6dded01fa8774c004e42f2b2de45ffc6",
+      "reason": "The matched AST call is pickle.dump; it serializes existing process-owned data and does not deserialize bytes. All five active byte-reading sites use the tested restricted reader. The v1 wire format remains compatible with existing packaged workers."
+    },
+    {
+      "scanner": "semgrep",
+      "rule_id": "python.lang.security.deserialization.avoid-pickle",
+      "path": "core/engine_cli.py",
+      "start_line": 613,
+      "end_line": 624,
+      "source_sha256": "5023cf0d15004b709441282cccbe179e6dded01fa8774c004e42f2b2de45ffc6",
+      "reason": "The matched AST call is pickle.dump; it serializes existing process-owned data and does not deserialize bytes. All five active byte-reading sites use the tested restricted reader. The v1 wire format remains compatible with existing packaged workers."
+    },
+    {
+      "scanner": "semgrep",
+      "rule_id": "python.lang.security.deserialization.avoid-pickle",
+      "path": "core/engine_cli.py",
+      "start_line": 645,
+      "end_line": 645,
+      "source_sha256": "5023cf0d15004b709441282cccbe179e6dded01fa8774c004e42f2b2de45ffc6",
+      "reason": "The matched AST call is pickle.dump; it serializes existing process-owned data and does not deserialize bytes. All five active byte-reading sites use the tested restricted reader. The v1 wire format remains compatible with existing packaged workers."
+    },
+    {
+      "scanner": "semgrep",
+      "rule_id": "python.lang.security.deserialization.avoid-pickle",
+      "path": "core/engine_cli.py",
+      "start_line": 765,
+      "end_line": 765,
+      "source_sha256": "5023cf0d15004b709441282cccbe179e6dded01fa8774c004e42f2b2de45ffc6",
+      "reason": "The matched AST call is pickle.dump; it serializes existing process-owned data and does not deserialize bytes. All five active byte-reading sites use the tested restricted reader. The v1 wire format remains compatible with existing packaged workers."
+    },
+    {
+      "scanner": "semgrep",
+      "rule_id": "python.lang.security.deserialization.avoid-pickle",
+      "path": "scripts/probe_target_engine.py",
+      "start_line": 28,
+      "end_line": 28,
+      "source_sha256": "b557cefa1142bb5c2c5f5add929c5700228280421f36866532ead8d44e639087",
+      "reason": "The matched AST call is pickle.dumps; it serializes existing process-owned data and does not deserialize bytes. All five active byte-reading sites use the tested restricted reader. The v1 wire format remains compatible with existing packaged workers."
+    },
+    {
+      "scanner": "semgrep",
+      "rule_id": "python.lang.security.deserialization.avoid-pickle",
+      "path": "scripts/smoke/run_packaged_engine_smoke.py",
+      "start_line": 43,
+      "end_line": 43,
+      "source_sha256": "4b4495c6383ec8652539ccc6e3fff2464d5cb9ecae44f5e553cd1054844a364f",
+      "reason": "The matched AST call is pickle.dumps; it serializes existing process-owned data and does not deserialize bytes. All five active byte-reading sites use the tested restricted reader. The v1 wire format remains compatible with existing packaged workers."
+    },
+    {
+      "scanner": "semgrep",
+      "rule_id": "python.lang.security.deserialization.avoid-pickle",
+      "path": "ui/window_solver.py",
+      "start_line": 19,
+      "end_line": 19,
+      "source_sha256": "10fa31c2e346b06934d9c6333ca22cb3aefcf62ab2d9625e85be0bab59bb2575",
+      "reason": "The matched AST call is pickle.dump; it serializes existing process-owned data and does not deserialize bytes. All five active byte-reading sites use the tested restricted reader. The v1 wire format remains compatible with existing packaged workers."
+    }
+  ]
+}
