@@ -503,16 +503,8 @@ def _resource_guard(deadline: float, phase: str) -> None:
 
 
 def _execute_module(name: str, label: str, payload: bytes) -> types.ModuleType:
-    digest = sha256(payload).hexdigest()
-    filename = f"<sealed:{label}:{digest}>"
-    module = types.ModuleType(name)
-    module.__file__ = filename
-    module.__package__ = "benchmarks"
-    module.__cached__ = None
-    module.__captured_sha256__ = digest
-    sys.modules[name] = module
-    exec(compile(payload, filename, "exec", dont_inherit=True), module.__dict__)
-    return module
+    """Unverified legacy execution is disabled; do not repin archived replays."""
+    raise RuntimeError("Unverified legacy module execution is disabled")
 
 
 class _CapturedSourceLoader(importlib.abc.Loader):

@@ -7,6 +7,9 @@ from __future__ import annotations
 import ast
 import os
 from pathlib import Path
+import subprocess
+import sys
+import tempfile
 import tomllib
 
 ARCHIVE = "benchmarks/probe_diagnostics"
@@ -87,3 +90,43 @@ def assert_archived_probe_boundary(root: Path) -> dict[str, int]:
 
 def test_archived_probes_stay_outside_product_and_normal_ci() -> None:
     assert_archived_probe_boundary(Path(__file__).resolve().parents[1])
+
+
+def test_unverified_legacy_execution_is_disabled() -> None:
+    """Exercise just each disabled helper, never import or replay an archive module."""
+    root = Path(__file__).resolve().parents[1]
+    count = 0
+    for source in sorted((root / ARCHIVE).rglob("*.py")):
+        text = source.read_text(encoding="utf-8")
+        functions = [node for node in ast.parse(text).body
+                     if isinstance(node, ast.FunctionDef) and node.name == "_execute_module"]
+        for function in functions:
+            count += 1
+            body = function.body
+            assert len(body) == 2 and isinstance(body[0], ast.Expr)
+            assert isinstance(body[0].value, ast.Constant) and isinstance(body[0].value.value, str)
+            assert isinstance(body[1], ast.Raise) and body[1].cause is None
+            failure = body[1].exc
+            assert isinstance(failure, ast.Call) and isinstance(failure.func, ast.Name)
+            assert failure.func.id == "RuntimeError" and not failure.keywords
+            assert len(failure.args) == 1 and isinstance(failure.args[0], ast.Constant)
+            assert failure.args[0].value == "Unverified legacy module execution is disabled"
+            assert not function.decorator_list
+            assert not function.args.defaults and not function.args.kw_defaults
+            with tempfile.TemporaryDirectory(prefix="disabled-legacy-helper-") as directory:
+                sentinel = Path(directory) / "payload-executed"
+                payload = ("from pathlib import Path; Path(" + repr(str(sentinel)) + ").write_text('unsafe')").encode()
+                # The function body and signature were validated above. No archived
+                # top-level code or payload is evaluated by the test harness.
+                program = ("from __future__ import annotations\n" + ast.get_source_segment(text, function)
+                           + "\ntry:\n    _execute_module('probe', 'fixture', " + repr(payload) + ")\n"
+                           + "except RuntimeError as error:\n"
+                           + "    assert str(error) == 'Unverified legacy module execution is disabled'\n"
+                           + "    print('disabled')\n"
+                           + "else:\n    raise AssertionError('legacy helper did not refuse')\n")
+                result = subprocess.run([sys.executable, "-I", "-S", "-c", program],
+                                        cwd=directory, stdin=subprocess.DEVNULL,
+                                        capture_output=True, timeout=5, check=False)
+                assert result.returncode == 0 and result.stdout == b"disabled\n" and not result.stderr
+                assert not sentinel.exists(), "untrusted legacy payload executed"
+    assert count == 12
