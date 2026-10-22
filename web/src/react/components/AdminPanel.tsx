@@ -113,9 +113,9 @@ export function AdminPanel({
       </header>
 
       <div className="admin-tabs" role="tablist" aria-label="Super admin sections">
-        <button type="button" role="tab" aria-selected={activeTab === "people"} className={activeTab === "people" ? "active" : ""} onClick={() => setActiveTab("people")}><UsersThree aria-hidden="true" />People & access</button>
+        <button type="button" role="tab" aria-selected={activeTab === "people"} className={activeTab === "people" ? "active" : ""} onClick={() => setActiveTab("people")}><UsersThree aria-hidden="true" />People &amp; access</button>
         <button type="button" role="tab" aria-selected={activeTab === "system"} className={activeTab === "system" ? "active" : ""} onClick={() => setActiveTab("system")}><Gauge aria-hidden="true" />System health</button>
-        <button type="button" role="tab" aria-selected={activeTab === "audit"} className={activeTab === "audit" ? "active" : ""} onClick={() => setActiveTab("audit")}><ChartBar aria-hidden="true" />Audit & analytics</button>
+        <button type="button" role="tab" aria-selected={activeTab === "audit"} className={activeTab === "audit" ? "active" : ""} onClick={() => setActiveTab("audit")}><ChartBar aria-hidden="true" />Audit &amp; analytics</button>
       </div>
 
       <div className="admin-tab-content" role="tabpanel">
@@ -158,7 +158,7 @@ export function AdminPanel({
             </div>
 
             <section className="admin-card">
-              <div className="admin-card-heading"><div><h2>Filters & exports</h2><p>Narrow the activity window or download records for offline review.</p></div></div>
+              <div className="admin-card-heading"><div><h2>Filters &amp; exports</h2><p>Narrow the activity window or download records for offline review.</p></div></div>
               <div className="admin-filter-grid">
                 <label>Days<input value={filters.days} onChange={(event) => setFilters({ ...filters, days: event.target.value })} inputMode="numeric" /></label>
                 <label>Organization<input value={filters.tenant_id} onChange={(event) => setFilters({ ...filters, tenant_id: event.target.value })} placeholder="All organizations" /></label>
