@@ -11,6 +11,7 @@ ROOT = Path(__file__).resolve().parents[2]
 if str(ROOT) not in sys.path:
     sys.path.insert(0, str(ROOT))
 
+from utils.worker_transport import read_worker_result
 from utils.generator import generate_instance  # noqa: E402
 from utils.io import schedule_from_rows  # noqa: E402
 from utils.specs import validate_schedule_against_instance  # noqa: E402
@@ -43,7 +44,7 @@ def main(argv: list[str] | None = None) -> int:
         _run_engine(engine_exe, in_path, out_path)
         if not out_path.exists():
             raise RuntimeError("Smoke test failed: result pickle was not produced.")
-        payload = pickle.loads(out_path.read_bytes())
+        payload = read_worker_result(out_path)
         status = int(payload.get("status", -999))
         if status not in (0, 4):
             raise RuntimeError(f"Engine smoke returned non-feasible status {status}: {payload}")

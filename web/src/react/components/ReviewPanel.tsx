@@ -23,7 +23,7 @@ export function ReviewPanel({ conflicts, score }: { conflicts: string[]; score: 
       <section className="panel">
         <div className="panel-heading">
           <div>
-            <h2>Conflicts & Diagnostics</h2>
+            <h2>Conflicts &amp; Diagnostics</h2>
             <p className="section-copy">
               Hard conflicts are issues the schedule must eliminate. Diagnostics below explain the biggest remaining soft-penalty sources after scoring.
             </p>

@@ -7,7 +7,7 @@ import json
 import os
 import re
 import tarfile
-import xml.etree.ElementTree as ET
+from utils import xml_security as ET
 from collections import Counter
 from pathlib import Path, PurePosixPath
 from typing import Any, Sequence

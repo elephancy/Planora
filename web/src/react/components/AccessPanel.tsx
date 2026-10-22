@@ -89,7 +89,7 @@ export function AccessPanel({ principal, snapshot, onChange, embedded = false }:
         <header className="access-page-heading">
           <div>
             <span className="eyebrow">Organization management</span>
-            <h2>People & access</h2>
+            <h2>People &amp; access</h2>
             <p>Approve accounts, assign responsibilities, and control who can work in each organization.</p>
           </div>
           {principal.is_global_admin ? (

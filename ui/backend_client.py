@@ -2,6 +2,8 @@ from __future__ import annotations
 
 import json
 import urllib.request
+
+from utils.http_security import read_http
 from typing import Any, Dict
 
 from services.contracts import PortfolioCandidate, PortfolioResult, SolveOptions, SolveResult
@@ -117,8 +119,7 @@ class HttpBackendClient(PlanoraBackendClient):
             headers=headers,
             method=("POST" if payload is not None else "GET"),
         )
-        with urllib.request.urlopen(request, timeout=180) as response:
-            data = json.loads(response.read().decode("utf-8"))
+        data = json.loads(read_http(request, timeout=180, maximum=16 * 1024 * 1024).decode("utf-8"))
         if not isinstance(data, dict):
             raise ValueError(f"Invalid backend response for {path}.")
         return data

@@ -101,7 +101,7 @@ export function AccountPanel({
         <div className="panel-heading">
           <div>
             <h2>Current Groups</h2>
-            <p className="section-copy">Admins can rename groups and grant scoped roles from People & access.</p>
+            <p className="section-copy">Admins can rename groups and grant scoped roles from People &amp; access.</p>
           </div>
         </div>
         <div className="group-list">

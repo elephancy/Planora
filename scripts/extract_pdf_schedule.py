@@ -6,7 +6,7 @@ import json
 import re
 import subprocess
 import tempfile
-import xml.etree.ElementTree as ET
+from utils import xml_security as ET
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Iterable
@@ -168,7 +168,17 @@ def extract(pdf_path: Path) -> tuple[list[dict[str, object]], dict[str, object]]
     with tempfile.TemporaryDirectory() as temp_dir:
         xhtml_path = Path(temp_dir) / "schedule.xhtml"
         _run_pdftotext(pdf_path, xhtml_path)
-        tree = ET.parse(xhtml_path)
+        # Poppler emits this literal external DTD declaration for bbox XHTML.
+        # Remove only that fixed prologue; never resolve it or accept arbitrary DTDs.
+        prologue = (b'<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" '
+                    b'"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">')
+        with xhtml_path.open("rb") as stream:
+            generated = stream.read(64 * 1024 * 1024 + 1)
+        if len(generated) > 64 * 1024 * 1024:
+            raise ValueError("Generated PDF XML exceeds byte limit")
+        if generated.startswith(prologue):
+            generated = generated[len(prologue):]
+        tree = ET.ElementTree(ET.fromstring(generated))
 
     root = tree.getroot()
     namespace = "{http://www.w3.org/1999/xhtml}"

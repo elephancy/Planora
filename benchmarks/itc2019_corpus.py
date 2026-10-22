@@ -14,8 +14,10 @@ import time
 from typing import Any
 from urllib.error import HTTPError, URLError
 from urllib.parse import quote
-from urllib.request import Request, urlopen
-from xml.etree import ElementTree
+from urllib.request import Request
+
+from utils.http_security import read_http
+from utils import xml_security as ElementTree
 
 from benchmarks.itc2019 import (
     ITC2019Problem,
@@ -233,8 +235,10 @@ def _default_fetch_bytes(url: str, timeout_seconds: float) -> bytes:
             "X-GitHub-Api-Version": "2022-11-28",
         },
     )
-    with urlopen(request, timeout=timeout_seconds) as response:  # noqa: S310
-        return response.read()
+    return read_http(
+        request, timeout=timeout_seconds, maximum=64 * 1024 * 1024,
+        https_only=True, allowed_hosts=("api.github.com", "raw.githubusercontent.com", "github.com", "codeload.github.com"), same_origin_redirects=False,
+    )
 
 
 def _fetch_with_retries(
@@ -360,10 +364,12 @@ ITC2019_EFFECTIVE_COMPETITION_PIN = ITC2019PublicCorpusPin(
 
 
 def _hashes(data: bytes) -> dict[str, str | int]:
+    # SHA-1 values are upstream Git/Software Heritage identifiers, not trust.
+    # Content validation also requires the independently pinned SHA-256 below.
     git_header = f"blob {len(data)}\0".encode("ascii")
     return {
         "byte_length": len(data),
-        "git_blob_sha1": hashlib.sha1(git_header + data).hexdigest(),  # noqa: S324
+        "git_blob_sha1": hashlib.sha1(git_header + data, usedforsecurity=False).hexdigest(),  # noqa: S324
         "sha256": hashlib.sha256(data).hexdigest(),
     }
 

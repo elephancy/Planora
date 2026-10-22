@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 from ui.window_runtime import *  # noqa: F401,F403
+from utils.worker_transport import read_worker_result
 
 
 def _write_private_solver_payload(path: str, payload: Any) -> None:
@@ -1397,7 +1398,7 @@ class WindowSolverMixin:
         self.update_quality_summary()
         self._refresh_blueprint_inspector()
         run_mode = str(self.run_mode_combo.currentText())
-        self.set_status(f"Draft ready · {len(self.current_schedule)} activities · {run_mode}")
+        self.set_status(f"Draft ready Â· {len(self.current_schedule)} activities Â· {run_mode}")
         self._append_audit_log(
             "solve_finished",
             {
@@ -1557,8 +1558,7 @@ class WindowSolverMixin:
             return
 
         try:
-            with open(self.tmp_res_path, "rb") as f:
-                res = pickle.load(f)
+            res = read_worker_result(self.tmp_res_path)
         except Exception as e:
             traceback.print_exc()
             QMessageBox.critical(self, "Result error", f"Cannot read result: {e}")

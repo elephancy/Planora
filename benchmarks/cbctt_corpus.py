@@ -15,7 +15,9 @@ import time
 from typing import Any
 from urllib.error import HTTPError, URLError
 from urllib.parse import quote
-from urllib.request import Request, urlopen
+from urllib.request import Request
+
+from utils.http_security import read_http
 
 from benchmarks.cbctt import (
     CBCTT_ARCHIVE_DIRECTORY_SWHID,
@@ -503,8 +505,10 @@ def _default_fetch_bytes(url: str, timeout_seconds: float) -> bytes:
             "User-Agent": "Planora-CBCTT-reproducibility-fetcher/1.0",
         },
     )
-    with urlopen(request, timeout=timeout_seconds) as response:  # noqa: S310
-        return response.read()
+    return read_http(
+        request, timeout=timeout_seconds, maximum=64 * 1024 * 1024,
+        https_only=True, allowed_hosts=("archive.softwareheritage.org",), same_origin_redirects=False,
+    )
 
 
 def _fetch_with_retries(
@@ -794,11 +798,13 @@ def _validate_archive_metadata(
 
 
 def _hashes(data: bytes) -> dict[str, str | int]:
+    # SHA-1 values are upstream Git/Software Heritage identifiers, not trust.
+    # Content validation also requires the independently pinned SHA-256 below.
     git_header = f"blob {len(data)}\0".encode("ascii")
     return {
         "length": len(data),
-        "sha1_git": hashlib.sha1(git_header + data).hexdigest(),  # noqa: S324
-        "sha1": hashlib.sha1(data).hexdigest(),  # noqa: S324
+        "sha1_git": hashlib.sha1(git_header + data, usedforsecurity=False).hexdigest(),  # noqa: S324
+        "sha1": hashlib.sha1(data, usedforsecurity=False).hexdigest(),  # noqa: S324
         "sha256": hashlib.sha256(data).hexdigest(),
     }
 

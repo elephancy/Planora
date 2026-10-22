@@ -6,7 +6,9 @@ import platform
 import sys
 import tempfile
 import traceback
-import urllib.request
+from urllib.parse import urlsplit
+
+from utils.http_security import read_http
 import zipfile
 from datetime import datetime, timezone
 from pathlib import Path
@@ -151,9 +153,10 @@ def save_update_manifest(path: str | Path, payload: Dict[str, Any]) -> None:
 def load_update_manifest(source: str | Path) -> Dict[str, Any]:
     text: str
     source_text = str(source)
-    if source_text.startswith(("http://", "https://")):
-        with urllib.request.urlopen(source_text, timeout=10) as response:  # nosec B310
-            text = response.read().decode("utf-8")
+    # Preserve local files (including Windows drive paths); URI-like input must be HTTP(S).
+    scheme = urlsplit(source_text).scheme.lower()
+    if scheme and not (len(scheme) == 1 and len(source_text) > 1 and source_text[1] == ":"):
+        text = read_http(source_text, timeout=10, maximum=1024 * 1024).decode("utf-8")
     else:
         text = Path(source).read_text(encoding="utf-8")
     payload = json.loads(text)

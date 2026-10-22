@@ -1,0 +1,56 @@
+name: Lighthouse CI
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "web/**"
+      - ".github/workflows/lighthouse.yml"
+      - ".github/lighthouseci.cjs"
+  pull_request:
+    paths:
+      - "web/**"
+      - ".github/workflows/lighthouse.yml"
+      - ".github/lighthouseci.cjs"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: lighthouse-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  lighthouse:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    env:
+      CHROME_PATH: /usr/bin/google-chrome
+      NEXT_TELEMETRY_DISABLED: '1'
+    steps:
+      - uses: actions/checkout@d23441a48e516b6c34aea4fa41551a30e30af803 # v6
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@249970729cb0ef3589644e2896645e5dc5ba9c38 # v6
+        with:
+          node-version: '24'
+      - name: Install website dependencies
+        run: npm --prefix web ci
+      - name: Build local production website
+        run: npm --prefix web run build
+      - name: Audit local production website
+        shell: bash
+        run: |
+          set -euo pipefail
+          test -x "$CHROME_PATH"
+          test -f web/dist/index.html
+          npx --yes --package=@lhci/cli@0.15.1 lhci autorun --config=./.github/lighthouseci.cjs
+      - name: Preserve Lighthouse reports in the repository artifact store
+        if: always()
+        uses: actions/upload-artifact@ea165f8d65b6e75b540449e92b4886f43607fa02 # v4
+        with:
+          name: lighthouse-${{ github.run_id }}-${{ github.run_attempt }}
+          path: artifacts/lighthouse/
+          retention-days: 1
+          if-no-files-found: ignore
