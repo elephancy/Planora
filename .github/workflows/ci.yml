@@ -16,7 +16,6 @@ jobs:
   checks:
     permissions:
       contents: read
-      id-token: write
     runs-on: ubuntu-latest
     timeout-minutes: 45
 
@@ -72,7 +71,8 @@ jobs:
         if: github.event_name == 'push' && github.ref == 'refs/heads/main' && vars.CODECOV_UPLOAD_ENABLED == 'true'
         uses: codecov/codecov-action@303a32d7a59b442fa8d48b6a1cc6825c09c847a5 # v7.1.1
         with:
-          use_oidc: true
+          use_oidc: false
+          token: ${{ secrets.CODECOV_TOKEN }}
           files: ./cover/critical-coverage.xml
           disable_search: true
           fail_ci_if_error: true
