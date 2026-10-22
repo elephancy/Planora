@@ -364,10 +364,12 @@ ITC2019_EFFECTIVE_COMPETITION_PIN = ITC2019PublicCorpusPin(
 
 
 def _hashes(data: bytes) -> dict[str, str | int]:
+    # SHA-1 values are upstream Git/Software Heritage identifiers, not trust.
+    # Content validation also requires the independently pinned SHA-256 below.
     git_header = f"blob {len(data)}\0".encode("ascii")
     return {
         "byte_length": len(data),
-        "git_blob_sha1": hashlib.sha1(git_header + data).hexdigest(),  # noqa: S324
+        "git_blob_sha1": hashlib.sha1(git_header + data, usedforsecurity=False).hexdigest(),  # noqa: S324
         "sha256": hashlib.sha256(data).hexdigest(),
     }
 

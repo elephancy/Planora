@@ -12,6 +12,7 @@ ROOT = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(ROOT))
 
 from main import normalize_instance_for_spec, stamp_instance_time
+from utils.worker_transport import read_worker_result
 from utils.generator import generate_instance
 
 
@@ -59,7 +60,7 @@ def main() -> int:
             print(proc.stderr[-4000:], file=sys.stderr)
         print(f"result_exists={out_path.exists()}")
         if out_path.exists():
-            result = pickle.loads(out_path.read_bytes())
+            result = read_worker_result(out_path)
             print(f"status={result.get('status')}")
             print(f"activities={len(result.get('schedule') or {})}")
             print(f"meta={result.get('meta')}")

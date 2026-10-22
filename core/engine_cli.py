@@ -22,6 +22,7 @@ from services.engine_backend import (
     solve_with_engine,
 )
 from utils.specs import validate_schedule_against_instance
+from utils.worker_transport import read_worker_instance
 
 
 def _map_status_to_ui(status: int) -> int:
@@ -152,8 +153,7 @@ def _legacy_main() -> int:
 
     # Read the pickled Instance produced by the UI
     try:
-        with open(in_path, "rb") as f:
-            inst = pickle.load(f)
+        inst = read_worker_instance(in_path)
     except Exception as e:
         print(f"[error] failed to read instance pickle: {e}", file=sys.stderr)
         traceback.print_exc()
@@ -726,8 +726,7 @@ def main() -> int:
 
     in_path, out_path = sys.argv[1], sys.argv[2]
     try:
-        with open(in_path, "rb") as fh:
-            inst = pickle.load(fh)
+        inst = read_worker_instance(in_path)
     except Exception as exc:
         print(f"[error] failed to read instance pickle: {exc}", file=sys.stderr)
         return 2
