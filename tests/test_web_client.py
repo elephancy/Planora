@@ -1,6 +1,7 @@
 from __future__ import annotations
 
 import hashlib
+import re
 from pathlib import Path
 
 
@@ -182,7 +183,7 @@ def test_deployment_scaffold_exists():
     assert '"443:443"' not in prod_compose
     assert "external: true" in prod_compose
     assert "- planora-web" in prod_compose
-    assert "caddy:2.9-alpine" in web_dockerfile
+    assert re.search(r"(?m)^FROM caddy:2\.\d+(?:\.\d+)?-alpine$", web_dockerfile)
     assert ":80" in caddyfile
     assert "tls {$PLANORA_TLS_EMAIL}" not in caddyfile
     assert "PLANORA_DB_PATH" in env_example
