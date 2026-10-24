@@ -69,9 +69,10 @@ async function requestJson<T>(
     const detail = error instanceof Error ? error.message : String(error);
     throw new Error(
       `Cannot reach the Planora API at ${baseUrl}. Start the backend on http://127.0.0.1:8787 for local development, or set VITE_PLANORA_API_URL. (${detail})`,
+      { cause: error },
     );
   }
-  let payload: Dict = {};
+  let payload: Dict;
   try {
     payload = await response.json();
   } catch {

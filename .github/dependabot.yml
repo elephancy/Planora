@@ -48,6 +48,25 @@ updates:
       interval: daily
     open-pull-requests-limit: 5
     groups:
+      react:
+        patterns:
+          - react
+          - react-dom
+          - "@types/react"
+          - "@types/react-dom"
+      typescript-eslint:
+        patterns:
+          - typescript
+          - "@typescript/*"
+          - typescript-eslint
+          - "@typescript-eslint/*"
+          - eslint
+          - "@eslint/*"
+          - "eslint-plugin-*"
+      vite:
+        patterns:
+          - vite
+          - "@vitejs/*"
       compatible-updates:
         patterns:
           - "*"
