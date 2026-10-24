@@ -30,6 +30,17 @@ npm run typecheck
 npm run build
 ```
 
+The typecheck and build commands use the native TypeScript 7 `tsc` provided by
+the `@typescript/native` npm alias. The `typescript` package name resolves to
+Microsoft's TypeScript 6 API compatibility package for typescript-eslint, whose
+current parser still requires that API. This follows Microsoft's
+[side-by-side migration guidance](https://devblogs.microsoft.com/typescript/announcing-typescript-7-0/#running-side-by-side-with-typescript-6.0).
+`npx tsc --version` reports the build compiler version; `npx tsc6 --version`
+reports the lint API compatibility version.
+
+Dependabot updates React/React DOM and their types together, and keeps the
+TypeScript/ESLint and Vite/plugin families grouped for major updates as well.
+
 Current API-backed actions:
 
 - load presets and instance JSON
