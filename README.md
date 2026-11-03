@@ -2,6 +2,8 @@
 
 Planora generates and edits academic timetables (lectures, tutorials, and labs) on configurable term and daily grids, using an OR-Tools CP-SAT master, exact or integrated room assignment, and an optional local-search improver. It includes a PyQt6 desktop UI and exporters for DOCX/CSV/ICS/PDF plus CSV summary reports.
 
+Open the web interface at [planora.elfeel.me](https://planora.elfeel.me/).
+
 The normal desktop, web, and Android workflow is deliberately small: Demo,
 Spring 2023 university, or Import your data; then Fast, Balanced, or Maximum
 quality. All clients consume the versioned `planora.ui.v1` catalog and route

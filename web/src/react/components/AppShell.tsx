@@ -1,6 +1,7 @@
 import type { Principal, ViewKey } from "../types";
 import { useEffect, useRef, useState } from "react";
-import type { ReactNode } from "react";
+import type { MouseEvent, ReactNode } from "react";
+import { VIEW_PATHS } from "../navigation";
 import {
   CalendarBlank,
   CaretLeft,
@@ -115,6 +116,12 @@ export function AppShell({
     onViewChange(view);
   };
 
+  const followPublicLink = (event: MouseEvent<HTMLAnchorElement>, view: ViewKey) => {
+    if (event.defaultPrevented || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return;
+    event.preventDefault();
+    changeView(view);
+  };
+
   return (
     <div className={`app-frame ${authenticated ? `authenticated-frame sidebar-${sidebarCollapsed ? "collapsed" : "expanded"}` : "public-frame"}`}>
       <header className="site-nav">
@@ -133,14 +140,15 @@ export function AppShell({
         ) : (
           <nav className="public-nav-links" aria-label="Main navigation">
             {PUBLIC_VIEWS.map((item) => (
-              <button
+              <a
                 key={item.key}
-                type="button"
+                href={VIEW_PATHS[item.key]}
                 className={activeView === item.key ? "active" : ""}
-                onClick={() => changeView(item.key)}
+                aria-current={activeView === item.key ? "page" : undefined}
+                onClick={(event) => followPublicLink(event, item.key)}
               >
                 {item.label}
-              </button>
+              </a>
             ))}
           </nav>
         )}
@@ -243,12 +251,12 @@ export function AppShell({
         >
           Analytics: {analyticsConsent === "granted" ? "On" : "Off"}
         </button>
-        <button type="button" className="footer-link-button" onClick={() => changeView("privacy")}>
+        <a href={VIEW_PATHS.privacy} className="footer-link-button" onClick={(event) => followPublicLink(event, "privacy")}>
           Privacy
-        </button>
-        <button type="button" className="footer-link-button" onClick={() => changeView("faq")}>
+        </a>
+        <a href={VIEW_PATHS.faq} className="footer-link-button" onClick={(event) => followPublicLink(event, "faq")}>
           FAQ
-        </button>
+        </a>
         <span>© Mahmoud Elfeel</span>
       </footer>
     </div>
