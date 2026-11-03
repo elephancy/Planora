@@ -30,6 +30,7 @@
     "vite": "8.2.4"
   },
   "overrides": {
-    "esbuild": "^0.28.1"
+    "esbuild": "^0.28.1",
+    "minimatch": "11.0.1"
   }
 }

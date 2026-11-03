@@ -2586,7 +2586,8 @@ button:hover:enabled {
   color: var(--accent);
 }
 
-.footer-link-button:hover:enabled {
+.footer-link-button:hover:enabled,
+a.footer-link-button:hover {
   background: transparent;
   color: var(--accent-2);
   transform: none;
@@ -3798,7 +3799,11 @@ button:hover:enabled {
   gap: 4px;
 }
 
-.public-nav-links button {
+.public-nav-links button,
+.public-nav-links a {
+  display: inline-flex;
+  align-items: center;
+  text-decoration: none;
   min-height: 38px;
   padding: 0 13px;
   border: 0;
@@ -3808,9 +3813,15 @@ button:hover:enabled {
 }
 
 .public-nav-links button:hover:enabled,
-.public-nav-links button.active {
+.public-nav-links button.active,
+.public-nav-links a:hover,
+.public-nav-links a.active {
   background: var(--nav-hover);
   color: var(--nav-active-text);
+}
+
+:root[data-theme="dark"] .faq-card h2 {
+  color: #17212b;
 }
 
 .nav-actions {

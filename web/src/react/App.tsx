@@ -12,6 +12,7 @@ import { ParityPanel } from "./components/ParityPanel";
 import { ProjectsPanel } from "./components/ProjectsPanel";
 import { FaqContent, HomeContent, PrivacyContent } from "./components/PublicPages";
 import { ReviewPanel } from "./components/ReviewPanel";
+import { RouteMetadata } from "./components/RouteMetadata";
 import { ScheduleBoard } from "./components/ScheduleBoard";
 import { SettingsPanel } from "./components/SettingsPanel";
 import { InsightsPanel } from "./components/InsightsPanel";
@@ -889,6 +890,7 @@ export function App() {
       onTutorialOpen={() => setTutorialOpen(true)}
       onAnalyticsConsentChange={setAnalyticsConsent}
     >
+      <RouteMetadata view={shellView} />
       {content[shellView]}
       <Tutorial
         open={tutorialOpen}
