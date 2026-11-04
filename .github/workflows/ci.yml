@@ -86,3 +86,17 @@ jobs:
           npm audit --audit-level=low
           npm run lint
           npm run build
+
+      - name: Verify production web routing and initial metadata
+        run: |
+          set -euo pipefail
+          docker build -f deploy/web.Dockerfile -t planora-web-ci .
+          trap 'docker rm -f planora-web-ci >/dev/null 2>&1 || true' EXIT
+          docker run -d --name planora-web-ci -p 127.0.0.1:18081:80 planora-web-ci
+          ready=false
+          for attempt in $(seq 1 30); do
+            if curl -fsS http://127.0.0.1:18081/ >/dev/null; then ready=true; break; fi
+            sleep 1
+          done
+          if [ "$ready" != true ]; then docker logs planora-web-ci; exit 1; fi
+          python scripts/check_web_metadata.py http://127.0.0.1:18081
