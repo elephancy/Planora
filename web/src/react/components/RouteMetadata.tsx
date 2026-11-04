@@ -1,23 +1,8 @@
 import { useEffect } from "react";
 import type { ViewKey } from "../types";
+import metadata from "../pageMetadata.json";
 
-const publicMetadata: Partial<Record<ViewKey, { title: string; description: string; path: string }>> = {
-  home: {
-    title: "Planora | Academic Timetabling and Scheduling",
-    description: "Planora helps university teams build academic timetables, manage scheduling constraints, review conflicts, and publish approved schedules.",
-    path: "/",
-  },
-  faq: {
-    title: "Planora FAQ | Academic Timetabling",
-    description: "Find answers about Planora's academic scheduling, user roles, organizations, and privacy choices.",
-    path: "/faq",
-  },
-  privacy: {
-    title: "Privacy | Planora Academic Scheduling",
-    description: "Read about Planora's scheduling data, essential cookies, optional analytics, and account communications.",
-    path: "/privacy",
-  },
-};
+const publicMetadata: Partial<Record<ViewKey, { title: string; description: string; path: string }>> = metadata;
 
 export function RouteMetadata({ view }: { view: ViewKey }) {
   useEffect(() => {

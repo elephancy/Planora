@@ -20,9 +20,35 @@
         reverse_proxy planora-api:8787
     }
 
+    @internal path /__seo /__seo/*
+    handle @internal {
+        respond 404
+    }
+
+    @home path /
+    handle @home {
+        root * /srv
+        rewrite * /index.html
+        file_server
+    }
+
+    @faq path /faq
+    handle @faq {
+        root * /srv
+        rewrite * /__seo/faq.html
+        file_server
+    }
+
+    @privacy path /privacy
+    handle @privacy {
+        root * /srv
+        rewrite * /__seo/privacy.html
+        file_server
+    }
+
     handle {
         root * /srv
-        try_files {path} /index.html
+        try_files {path} /__seo/workspace.html
         file_server
     }
 }
