@@ -1,8 +1,7 @@
 """Verify initial HTML from an isolated Planora web container."""
 import sys
+from http.client import HTTPConnection
 from html.parser import HTMLParser
-from urllib.error import HTTPError
-from urllib.request import urlopen
 
 
 class Head(HTMLParser):
@@ -31,7 +30,19 @@ class Head(HTMLParser):
             self.title += data
 
 
-base = sys.argv[1].rstrip("/")
+port = int(sys.argv[1])
+
+
+def fetch(path):
+    connection = HTTPConnection("127.0.0.1", port, timeout=10)
+    try:
+        connection.request("GET", path)
+        response = connection.getresponse()
+        return response.status, response.read(), response.headers
+    finally:
+        connection.close()
+
+
 cases = [
     ("/", "Planora | Academic Timetabling and Scheduling", "index,follow", "/"),
     ("/faq", "Planora FAQ | Academic Timetabling", "index,follow", "/faq"),
@@ -40,18 +51,14 @@ cases = [
     ("/workspace", "Planora | Sign in and workspace", "noindex,follow", None),
 ]
 for path, title, robots, canonical in cases:
-    with urlopen(base + path, timeout=10) as response:
-        head = Head()
-        head.feed(response.read().decode("utf-8"))
-        expected = ["https://planora.elfeel.me" + canonical] if canonical else []
-        assert (response.status, head.title, head.robots, head.canonical) == (200, title, [robots], expected), path
-        assert response.headers.get("Content-Security-Policy"), path
+    status, body, headers = fetch(path)
+    head = Head()
+    head.feed(body.decode("utf-8"))
+    expected = ["https://planora.elfeel.me" + canonical] if canonical else []
+    assert (status, head.title, head.robots, head.canonical) == (200, title, [robots], expected), path
+    assert headers.get("Content-Security-Policy"), path
 
 for path, status in [("/__seo", 404), ("/__seo/faq.html", 404), ("/api/health", 502)]:
-    try:
-        response = urlopen(base + path, timeout=10)
-    except HTTPError as error:
-        response = error
-    with response:
-        assert response.status == status, (path, response.status)
+    actual_status, _, _ = fetch(path)
+    assert actual_status == status, (path, actual_status)
 print("Planora initial metadata and isolated API routing verified")
