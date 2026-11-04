@@ -99,4 +99,4 @@ jobs:
             sleep 1
           done
           if [ "$ready" != true ]; then docker logs planora-web-ci; exit 1; fi
-          python scripts/check_web_metadata.py 18081
+          python tests/check_web_metadata.py 18081
