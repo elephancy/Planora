@@ -6,8 +6,8 @@ ENV PLANORA_DB_PATH=/app/data/planora.sqlite3
 
 WORKDIR /app
 
-COPY requirements.txt requirements.txt
-RUN pip install --no-cache-dir -r requirements.txt
+COPY requirements-api.txt requirements-api.txt
+RUN pip install --no-cache-dir -r requirements-api.txt
 
 COPY api api
 COPY benchmarks benchmarks

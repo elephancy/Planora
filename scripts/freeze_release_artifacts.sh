@@ -207,6 +207,7 @@ for rel in \
   "LICENSE" \
   "pyproject.toml" \
   "requirements.txt" \
+  "requirements-api.txt" \
   "requirements-dev.txt" \
   "scripts/run_experiments.py" \
   "scripts/analyze_experiments.py" \

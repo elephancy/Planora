@@ -79,6 +79,16 @@ jobs:
           version: v11.3.1
           cleanup: true
 
+      - name: Verify Qt-free production API runtime
+        run: |
+          docker build -f deploy/Dockerfile -t planora-api-ci .
+          docker run --rm --network none --read-only \
+            --cap-drop ALL --security-opt no-new-privileges \
+            --tmpfs /tmp:rw,noexec,nosuid,nodev,size=64m \
+            --memory 1g --pids-limit 128 --cpus 2 \
+            --mount "type=bind,source=$PWD/tests/check_api_runtime.py,target=/verify/check_api_runtime.py,readonly" \
+            --entrypoint python planora-api-ci /verify/check_api_runtime.py
+
       - name: Check React web client
         working-directory: web
         run: |
