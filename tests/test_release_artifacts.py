@@ -131,6 +131,7 @@ def _stage_release_source(destination: Path) -> Path:
         "pyproject.toml",
         "requirements-dev.txt",
         "requirements.txt",
+        "requirements-api.txt",
     ):
         _copy_file(ROOT / relative, repo / relative)
     for directory in ("web/src", "web/public"):
@@ -319,6 +320,7 @@ def test_frozen_release_preserves_paper_tree_and_verifies(
     ).is_file()
     assert (artifact / "paper/sections/01_introduction.tex").is_file()
     assert (artifact / "api/http.py").is_file()
+    assert (artifact / "requirements-api.txt").is_file()
     assert (artifact / "api/rate_limit.py").is_file()
     assert (artifact / "core/fixed_time_room_oracle.py").is_file()
     assert (artifact / "core/fixed_time_room_proof_checker.py").is_file()

@@ -38,6 +38,7 @@ for required in \
   "main.py" \
   "pyproject.toml" \
   "requirements.txt" \
+  "requirements-api.txt" \
   "requirements-dev.txt" \
   "paper/main.pdf" \
   "paper/main.tex" \
